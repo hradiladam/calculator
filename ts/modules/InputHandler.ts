@@ -1,4 +1,4 @@
-// js/modules/InputHandler.ts
+// ts/modules/InputHandler.ts
 // ——— Handles logic of user inputs ———
 
 import State from './State.js';
@@ -170,7 +170,6 @@ export default class InputHandler {
             case 'AC':
                 this.display.clearAll();
                 break;
-            
             case '⌫':
                 this.display.backspace();
                 break;

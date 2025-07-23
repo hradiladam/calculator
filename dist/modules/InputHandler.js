@@ -1,4 +1,4 @@
-// js/modules/InputHandler.ts
+// ts/modules/InputHandler.ts
 // ——— Handles logic of user inputs ———
 export default class InputHandler {
     state;

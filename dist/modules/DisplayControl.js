@@ -1,4 +1,4 @@
-// js/modules/DisplayControl.ts
+// ts/modules/DisplayControl.ts
 // ——— Handles updating and clearing the UI ———
 import { formatForDisplay } from './formatter.js';
 export default class DisplayControl {
@@ -10,7 +10,7 @@ export default class DisplayControl {
         this.resultElement = resultElement;
         this.state = state;
     }
-    // Update the content of the display elements frpm state
+    // Update the content of the display elements from state
     update = () => {
         this.historyElement.textContent = this.state.recentHistory || 'No history to show'; // Update the history text
         this.resultElement.textContent = formatForDisplay(this.state.currentInput || '0'); // Update the result text

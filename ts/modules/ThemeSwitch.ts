@@ -1,4 +1,4 @@
-// js/modules/ThemeSwitch.ts
+// ts/modules/ThemeSwitch.ts
 // ——— Switches themes ———
 
 export default class ThemeSwitch {

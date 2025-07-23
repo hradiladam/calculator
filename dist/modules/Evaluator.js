@@ -1,4 +1,4 @@
-// js/modules/Evaluator.ts
+// ts/modules/Evaluator.ts
 // ——— Wraps the fetch logic and error handling plus formatting for history display ———
 import { formatForHistory } from './formatter.js';
 export default class Evaluator {

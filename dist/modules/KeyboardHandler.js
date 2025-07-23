@@ -1,4 +1,4 @@
-// js/modules/KeyboardHandler.ts
+// ts/modules/KeyboardHandler.ts
 // ——— Wires physical keys to our input handler ———
 export default class KeyboardHandler {
     inputHandler;

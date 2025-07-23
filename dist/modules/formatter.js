@@ -1,4 +1,4 @@
-// js/modules/formatter.ts
+// ts/modules/formatter.ts
 // ——— Centralizes display and history formatting ———
 const MULT_RULES = [
     { from: /(\d+%)\s*(\d+%)/g, to: '$1 × $2' }, // percent followed by percent

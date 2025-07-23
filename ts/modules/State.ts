@@ -1,4 +1,4 @@
-// js/modules/State.ts
+// ts/modules/State.ts
 // ——— Encapsulates the calculator shared state ———
 
 export default class State {

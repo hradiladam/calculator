@@ -1,4 +1,4 @@
-// js/modules/formatter.ts
+// ts/modules/formatter.ts
 // ——— Centralizes display and history formatting ———
 
 type MultRule = {

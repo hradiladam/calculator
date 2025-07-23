@@ -1,0 +1,82 @@
+// TESTS/jest-tests/frontend/component/Evaluator.component.test.ts
+// —— COMPONENT TEST FOR Evaluator.ts ——
+// Verifies the full evaluate() flow (error then success) with mocked fetch.
+
+import Evaluator from '../../../../ts/modules/Evaluator';
+import State from '../../../../ts/modules/State';
+import DisplayControl from '../../../../ts/modules/DisplayControl';
+import { formatForHistory } from '../../../../ts/modules/formatter';
+
+describe('Evaluator component behavior', () => {
+    let state: State;
+    let display: jest.Mocked<DisplayControl>;
+    let evaluator: Evaluator;
+    let originalFetch: typeof fetch;
+
+    beforeEach(() => {
+        state = new State();
+        display = {
+            resultElement: document.createElement('div'),
+            historyElement: document.createElement('div'),
+            clearAll: jest.fn(),
+            backspace: jest.fn(),
+            update: jest.fn(),
+        } as unknown as jest.Mocked<DisplayControl>;
+        evaluator = new Evaluator(state, display);
+        originalFetch = global.fetch;
+    });
+
+    afterEach(() => {
+        global.fetch = originalFetch;
+    });
+
+    test('subsequent success response clears error-text', async () => {
+        // First simulate an error to set the class
+        global.fetch = jest.fn().mockResolvedValue({
+            ok: false,
+            json: () => Promise.resolve({ error: 'Err' }),
+        });
+        state.currentInput = 'bad';
+        await evaluator.evaluate();
+
+        // Now simulate success
+        (global.fetch as jest.Mock).mockResolvedValue({
+            ok: true,
+            json: () => Promise.resolve({ result: '2' }),
+        });
+        state.currentInput = '1 + 1';
+        await evaluator.evaluate();
+
+        expect(state.currentInput).toBe('2');
+        expect(display.resultElement.classList.contains('error-text')).toBe(false);
+    });
+
+    test('after success, history and result elements update correctly', async () => {
+        // Mock a successful server response
+        const mockResult = '7';
+        global.fetch = jest.fn().mockResolvedValue({
+            ok: true,
+            json: () => Promise.resolve({ result: mockResult }),
+        });
+
+        // Reflect state in the DOM using a real DisplayControl instance
+        // Set up real DOM elements
+        const historyEl = document.createElement('div');
+        const resultEl = document.createElement('div');
+        state.currentInput = '3 + 4';
+        display = new DisplayControl(historyEl, resultEl, state) as any;
+        evaluator = new Evaluator(state, display);
+
+        // Run evaluation and update
+        await evaluator.evaluate();
+        display.update();
+
+        // Assert DOM text content
+        expect(historyEl.textContent).toBe(formatForHistory('3 + 4') + ' =');
+        expect(resultEl.textContent).toBe(mockResult);
+        expect(resultEl.classList.contains('error-text')).toBe(false);
+    });
+});
+
+
+// npx jest TESTS/jest-tests/frontend/component/Evaluator.component.test.ts
