@@ -1,6 +1,7 @@
 // ts/modules/Evaluator.ts
 // ——— Wraps the fetch logic and error handling plus formatting for history display ———
 import { formatForHistory } from './formatter.js';
+import { getEvaluateUrl } from '../config-api.js';
 export default class Evaluator {
     state;
     display;
@@ -12,9 +13,7 @@ export default class Evaluator {
         const resultElement = this.display.resultElement;
         resultElement.classList.remove('error-text');
         try {
-            const API_URL = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
-                ? 'http://localhost:3000/evaluate'
-                : 'https://calculator-yzjs.onrender.com/evaluate';
+            const API_URL = getEvaluateUrl();
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -24,15 +23,18 @@ export default class Evaluator {
             // Always record what the user attempted
             this.state.recentHistory = formatForHistory(this.state.currentInput) + ' =';
             if (!response.ok) {
-                this.state.currentInput = data.error;
+                // Server‑reported error
+                this.state.currentInput = data.error ?? 'Error';
                 resultElement.classList.add('error-text');
             }
             else {
-                this.state.currentInput = data.result;
+                // Success
+                this.state.currentInput = data.result ?? '';
                 this.state.lastButtonWasEquals = true;
             }
         }
         catch {
+            // Network or CORS failure
             this.state.currentInput = 'Network Error';
             resultElement.classList.add('error-text');
         }
