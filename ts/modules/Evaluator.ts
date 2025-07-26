@@ -4,12 +4,12 @@
 import { formatForHistory } from './formatter.js';
 import State from './State.js';
 import DisplayControl from './DisplayControl.js';
+import { getEvaluateUrl } from '../config-api.js';
 
 interface ApiResponse {
     result?: string;
     error?: string;
 }
-
 
 export default class Evaluator {
     private state: State;
@@ -25,29 +25,30 @@ export default class Evaluator {
         resultElement.classList.remove('error-text');
 
         try {
-            const API_URL = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
-                ? 'http://localhost:3000/evaluate'
-                : 'https://calculator-yzjs.onrender.com/evaluate';
+            const API_URL = getEvaluateUrl();
 
             const response = await fetch(API_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ expression: this.state.currentInput })
             });
-            const data = await response.json();
+            const data: ApiResponse = await response.json();
 
             // Always record what the user attempted
             this.state.recentHistory = formatForHistory(this.state.currentInput) + ' =';
 
             if (!response.ok) {
-                this.state.currentInput = data.error;
+                // Server‑reported error
+                this.state.currentInput = data.error ?? 'Error';
                 resultElement.classList.add('error-text');
             } else {
-                this.state.currentInput = data.result;
+                // Success
+                this.state.currentInput = data.result ?? '';
                 this.state.lastButtonWasEquals = true;
             }
 
         } catch {
+            // Network or CORS failure
             this.state.currentInput = 'Network Error';
             resultElement.classList.add('error-text');
         }
