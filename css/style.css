@@ -8,7 +8,7 @@ body {
 	align-items: center;
 	min-height: 100vh;
 	margin: 0;
-	background: linear-gradient(130deg, rgba(255,255,255,1), rgb(197, 197, 197));
+	background: linear-gradient(130deg, rgb(235, 235, 235), rgb(230, 230, 230));
 }
 
 .calculator {
@@ -16,10 +16,10 @@ body {
 	gap: 0.8rem;
 	grid-template-columns: repeat(4, 4.7rem);
 	grid-auto-rows: 5.1rem;
-	background-color: rgba(100,100,100,1);
+	background-color: rgb(243, 243, 243);
 	padding: 1.3rem;
 	border-radius: 8px;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.199);
 }
 
 #display {
@@ -29,14 +29,14 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	background-color: rgba(255,255,255,1);
-	color: rgba(46,60,80,1);
+	background-color: rgb(228, 228, 228);
+	color: rgb(71, 71, 71);
 	font-size: 2rem;
 	text-align: right;
 	border-radius: 6px;
 	padding: 0.75rem;
 	margin-bottom: 0.5rem;
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.185);
 }
 
 #result {
@@ -47,7 +47,7 @@ body {
 
 #result.error-text {
 	font-size: 1.5rem;
-	color: rgba(235,77,69,1);
+	color: rgba(235,77,69);
 }
 
 #recent-history {
@@ -70,50 +70,50 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: rgba(46,60,80,1);
-	background-color: rgba(238,244,250,1);
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+	color: rgb(63, 63, 63);
+	background-color:  rgb(219, 219, 219);
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.041);
 	transition: background-color 0.2s ease, outline 0.2s ease;
 }
 
 .button:hover {
-	background-color: rgba(224,224,224,1);
+	background-color: rgb(206, 206, 206);
 }
 
 .button:active,
 .button.press-active {
 	transform: scale(0.99);
-	outline: 1px solid rgba(126,142,156,1);
+	outline: 1px solid rgba(0, 0, 0, 0.479);
 }
 
 .operator {
-	background-color: rgba(83,181,247,1);
+	background-color: rgb(99, 190, 250);
 	color: rgb(255,255,255);
 	font-weight: 500;
 }
 
 .operator:hover {
-	background-color: rgba(65,165,231,1);
+	background-color: rgb(74, 170, 235);
 }
 
 .additional {
-	background-color: rgba(60,218,165,1);
+	background-color: rgb(80, 230, 180);
 	color: rgb(255,255,255);
 	font-weight: 500;
 }
 
 .additional:hover {
-	background-color: rgba(51,211,158,1);
+	background-color: rgb(58, 212, 161);
 }
 
 .button:nth-child(21) {
-	background-color: rgba(68,152,207,1);
+	background-color: rgba(83,181,247,1);
 	color: rgb(255,255,255);
 	font-size: 1.8rem;
 }
 
 .button:nth-child(21):hover {
-	background-color: rgba(52,132,185,1);
+	background-color: rgb(70, 153, 207);
 }
 
 /* Theme & History Toggle Buttons */
@@ -139,7 +139,7 @@ body {
 	background-color: rgb(255, 255, 255);
 	color: rgb(75, 75, 75);
 	font-size: 2rem;
-	box-shadow: 0 0 4px rgb(155, 155, 155);
+	box-shadow: 0 0 3px rgb(185, 185, 185);
 	transition: transform 0.3s ease,
 	            background-color 0.3s ease,
 	            box-shadow 0.3s ease;
@@ -250,7 +250,7 @@ body.dark-theme #result {
 }
 
 body.dark-theme #result.error-text {
-	color: rgba(236,111,111,1);
+	color: rgba(236,111,111);
 }
 
 body.dark-theme .button {
@@ -288,7 +288,7 @@ body.dark-theme .additional:hover {
 }
 
 body.dark-theme .button:nth-child(21) {
-	background-color: rgb(148, 77, 77);
+	background-color: rgba(202,102,102,1);
 	color: rgba(240,240,240,1);
 }
 
@@ -300,7 +300,7 @@ body.dark-theme #theme-switch,
 body.dark-theme #history-toggle {
 	background-color: rgb(3, 3, 3);
 	color: rgb(255, 255, 255);
-	box-shadow: 0 0 4px rgb(94, 94, 94);
+	box-shadow: 0 0 3px rgb(95, 95, 95);
 }
 
 /* Dark-mode history panel */
