@@ -117,7 +117,7 @@ body {
 }
 
 /* Theme & History Toggle Buttons */
-#theme-element {
+#options {
 	position: fixed;
 	top: 2rem;
 	right: 2.5rem;
@@ -402,7 +402,7 @@ body.dark-theme * {
 		border-radius: 3px;
 	}
 
-	#theme-element {
+	#options {
         position: fixed;
         bottom: 0;
         top: auto;
@@ -458,7 +458,7 @@ body.dark-theme * {
         pointer-events: auto;
     }
 
-	body.dark-theme #theme-element {
+	body.dark-theme #options {
         background: rgb(14, 14, 14);
     }
 
@@ -477,7 +477,7 @@ body.dark-theme * {
         gap: 0.45rem;
     }
 
-	#theme-element {
+	#options {
 		gap: 1rem;
 	}
 
