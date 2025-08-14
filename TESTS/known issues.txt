@@ -8,6 +8,7 @@ Severity: Low -> Visual inconsistency
 Priority: Low
 
 -----------------------------------------------------------------------------------------
+
 #002 – Multipel Zeros Are Accepted in Input
 Description: Multiple '0's can be typed after an operator (e.g., '5 + 000').
 Location: _handleNumber in InputHandler
@@ -15,12 +16,15 @@ Severity: Low -> Cosmetic issue. Math.js is resiliant to multiple 0 in an expres
 Priority: Low
 
 -----------------------------------------------------------------------------------------
-#003 – Double Spaces Around Operators in Internal Input Handling
+
+#003 – Double Spaces Around Operators in Internal Input Handling after replacing an operator with another operator (e.g., '1 + ' and press '-' to replace '+' to get '1 - ' )
 Description: Operators are surrounded by two spaces internally. 
 Location: _handleOperator in InputHandler
 Severity: Very Low -> Math.js is resiliant to extra spaces. Outputs from InputHandler are fixed by to formatter for display.
 Priority: Very Low
+
 -----------------------------------------------------------------------------------------
+
 #004 – Preprocessor Wraps Expressions in Extra Parentheses
 Description: Already-parenthesized expressions are further wrapped (e.g., '5+(1+1)' → '(5+(1+1))').
 Location: preprocess() in preprocessor
@@ -28,6 +32,7 @@ Severity: Low -> Math.js is resiliant to extra parentheses. Preprocessed express
 Priority: Very Low
 
 -----------------------------------------------------------------------------------------
+
 #005 – Minus Sign in Result Not Formatted as Unary
 Description: Result display formats negative numbers with a space before minus (e.g., '- 5' instead of '-5').
 Location: probably formatter.ts
