@@ -72,7 +72,7 @@ body {
 	align-items: center;
 	color: rgb(63, 63, 63);
 	background-color:  rgb(219, 219, 219);
-	box-shadow: 0 0 1px rgba(0, 0, 0, 0.411);
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.438);
 	transition: background-color 0.2s ease, outline 0.2s ease;
 }
 
@@ -220,6 +220,7 @@ body {
 
 .history-result {
 	color: rgba(50,137,196,1);
+	font-size: 1.1rem;
 	font-weight: 500;
 }
 
@@ -237,12 +238,12 @@ body.dark-theme .calculator {
 
 body.dark-theme #display {
 	background-color: rgba(53,53,53,1);
-	color: rgba(224,224,224,1);
+	color: rgb(235, 235, 235);
 	box-shadow: 0 0 1px rgba(255, 255, 255, 0.26);
 }
 
 body.dark-theme #recent-history {
-	color: rgba(201,201,201,1);
+	color: rgb(219, 219, 219);
 }
 
 body.dark-theme #result {
@@ -255,12 +256,12 @@ body.dark-theme #result.error-text {
 
 body.dark-theme .button {
 	background-color: rgba(68,68,68,1);
-	color: rgba(224,224,224,1);
-	box-shadow: 0 0 1px rgba(255, 255, 255, 0.226);
+	color: rgb(238, 238, 238);
+	box-shadow: 0 0 1px rgba(255, 255, 255, 0.521);
 }
 
 body.dark-theme .button:hover {
-	background-color: rgba(102,102,102,1);
+	background-color: rgb(109, 109, 109);
 }
 
 body.dark-theme .button:active,
@@ -275,7 +276,7 @@ body.dark-theme .operator {
 }
 
 body.dark-theme .operator:hover {
-	background-color: rgba(179,82,82,1);
+	background-color: rgb(170, 77, 77);
 }
 
 body.dark-theme .additional {
@@ -284,7 +285,7 @@ body.dark-theme .additional {
 }
 
 body.dark-theme .additional:hover {
-	background-color: rgba(43,121,103,1);
+	background-color: rgb(40, 117, 99);
 }
 
 body.dark-theme .button:nth-child(21) {
@@ -317,7 +318,7 @@ body.dark-theme #history-panel.visible:not(:empty) {
 
 body.dark-theme .history-expression,
 body.dark-theme .history-empty {
-	color: rgb(231, 231, 231);
+	color: rgb(238, 238, 238);
 }
 
 body.dark-theme .history-result {
