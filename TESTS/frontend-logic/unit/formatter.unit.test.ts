@@ -19,22 +19,22 @@ describe('formatter', () => {
 
         // Inserts × when a percent is followed by a parenthesis group
         test('inserts " × " when percent before "("', () => {
-            expect(formatForHistory('10%(1+1)')).toBe('10% × (1+1)');
+            expect(formatForHistory('10%(1+1)')).toBe('10% × (1 + 1)');
         });
 
         // Inserts × when a number is directly followed by a parenthesis group
         test('inserts " × " when number before "("', () => {
-            expect(formatForHistory('2(1+1)')).toBe('2 × (1+1)');
+            expect(formatForHistory('2(1+1)')).toBe('2 × (1 + 1)');
         });
 
         // Inserts × between two closing+opening parentheses
         test('inserts " × " between ")(" sequences', () => {
-            expect(formatForHistory('(1+1)(1+1)')).toBe('(1+1) × (1+1)');
+            expect(formatForHistory('(1+1)(1+1)')).toBe('(1 + 1) × (1 + 1)');
         });
 
         // Inserts × between a closing parenthesis and a number
         test('inserts " × " between ")" and digit', () => {
-            expect(formatForHistory('(1+1)9')).toBe('(1+1) × 9');
+            expect(formatForHistory('(1+1)9')).toBe('(1 + 1) × 9');
         });
 
         // Formats negative numbers as unary, without extra space
@@ -81,6 +81,67 @@ describe('formatter', () => {
         test('formats negative numbers with unary minus (no space)', () => {
             expect(formatForDisplay('-5')).toBe('-5');
             expect(formatForDisplay('-123.45')).toBe('-123.45');
+        });
+    });
+
+    // —— Extra tests: thousands separators and related edge cases ——
+
+    describe('formatForHistory() — thousands separators', () => {
+        // Adds commas in plain integers inside expressions
+        test('groups thousands in integers within expressions', () => {
+            expect(formatForHistory('1000+2000')).toBe('1,000 + 2,000');
+        });
+
+        // Adds × and groups when percent is followed by a big number
+        test('adds × and groups when percent before number', () => {
+            expect(formatForHistory('50%1000')).toBe('50% × 1,000');
+        });
+
+        // Groups inside parentheses and inserts × between groups
+        test('groups inside parentheses and between groups', () => {
+            expect(formatForHistory('(1000)(2000)')).toBe('(1,000) × (2,000)');
+        });
+
+        // Leaves scientific notation unchanged (no spaces, no commas inserted)
+        test('preserves scientific notation with large magnitudes', () => {
+            expect(formatForHistory('1e+6')).toBe('1e+6');
+            expect(formatForHistory('-2.5e-4')).toBe('-2.5e-4');
+        });
+    });
+
+    describe('formatForDisplay() — thousands separators', () => {
+        // Groups a plain integer as the user types
+        test('groups a plain integer', () => {
+            expect(formatForDisplay('1000')).toBe('1,000');
+        });
+
+        // Groups large integers with decimals; only integer part is grouped
+        test('groups integer part and preserves decimals', () => {
+            expect(formatForDisplay('1234567.89')).toBe('1,234,567.89');
+        });
+
+        // Keeps unary minus tight and groups the magnitude
+        test('keeps unary minus tight and groups', () => {
+            expect(formatForDisplay('-1234567.89')).toBe('-1,234,567.89');
+        });
+
+        // Normalizes * and / with large numbers and groups properly
+        test('normalizes operators and groups large numbers', () => {
+            expect(formatForDisplay('1000*2000/10')).toBe('1,000 × 2,000 ÷ 10');
+        });
+
+        // Leaves scientific notation compact (no spaces around e+/-; no grouping)
+        test('preserves scientific notation with large magnitudes', () => {
+            expect(formatForDisplay('1e+6')).toBe('1e+6');
+            expect(formatForDisplay('-2.5e-4')).toBe('-2.5e-4');
+        });
+
+        // Idempotence: formatting an already formatted string should not change it
+        test('is idempotent on already formatted output', () => {
+            const onceFormatted = formatForDisplay('1234567');
+            expect(onceFormatted).toBe('1,234,567');
+            const twiceFormatted = formatForDisplay(onceFormatted);
+            expect(twiceFormatted).toBe(twiceFormatted);
         });
     });
 });

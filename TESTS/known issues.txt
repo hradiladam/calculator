@@ -1,14 +1,6 @@
 Known Issues – Calculator Application
 ======================================
 
-#001 – Extra Spaces Around '+' in Exponential Notation in Display
-Description: Result display adds spaces around '+' in exponential formats (e.g., '1.2e + 5').
-Location: probably formatter.ts
-Severity: Low -> Visual inconsistency
-Priority: Low
-
------------------------------------------------------------------------------------------
-
 #002 – Multipel Zeros Are Accepted in Input
 Description: Multiple '0's can be typed after an operator (e.g., '5 + 000').
 Location: _handleNumber in InputHandler
@@ -32,13 +24,6 @@ Severity: Low -> Math.js is resiliant to extra parentheses. Preprocessed express
 Priority: Very Low
 
 -----------------------------------------------------------------------------------------
-
-#005 – Minus Sign in Result Not Formatted as Unary
-Description: Result display formats negative numbers with a space before minus (e.g., '- 5' instead of '-5').
-Location: probably formatter.ts
-Severity: Low -> Visual inconsistancy
-Priority: Low
-
 
 Notes:
 ------
