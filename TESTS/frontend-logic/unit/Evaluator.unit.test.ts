@@ -48,11 +48,11 @@ describe('Evaluator.evaluate() – unit tests', () => {
             ok: true,
             json: () => Promise.resolve(mockResponse),
         });
-        state.currentInput = '6 * 7';
+        state.currentInput = '6 × 7';
 
         await evaluator.evaluate();
 
-        expect(state.recentHistory).toBe('6 * 7 =');
+        expect(state.recentHistory).toBe('6 × 7 =');
         expect(state.currentInput).toBe('42');
         expect(state.lastButtonWasEquals).toBe(true);
         expect(display.resultElement.classList.contains('error-text')).toBe(false);

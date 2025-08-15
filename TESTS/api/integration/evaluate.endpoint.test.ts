@@ -55,6 +55,6 @@ describe('POST /evaluate', () => {
 
 
 
-// npx jest TESTS/api/evaluate.endpoint.test.ts
+// npx jest TESTS/api/integration/evaluate.endpoint.test.ts
 
 
