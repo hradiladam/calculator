@@ -34,20 +34,66 @@ const groupThousandsInNumbers = (s: string): string => {
 
 /**
  * Prepares operators and symbols for display by:
- * - Adding spaces around + - * /
- * - Normalizing * to ×
- * - Normalizing / to ÷
- * - Collapsing multiple spaces into one
- * - Trimming leading/trailing spaces
+ * - Adding spaces around binary + - × ÷
+ * - Keeping unary minus tight (e.g., -5, (-3))
+ * - Normalizing * to × and / to ÷
+ * - Preserving compact scientific notation (e.g., 1.23e+5)
+ * - Collapsing multiple spaces and trimming ends
  */
 const prepareOperatorsForDisplay = (expr: string): string => {
-    return expr
-        .replace(/([+\-*/])/g, ' $1 ') // space around + - * /
-        .replace(/×|\*/g, ' × ')       // normalize * to ×
-        .replace(/÷|\//g, ' ÷ ')       // normalize / to ÷
-        .replace(/\s+/g, ' ')          // collapse multiple spaces into one
+
+    // ——— Guard ———
+    if (!expr) return expr;   // If the string is empty or falsy, skip formatting
+
+    // ——— Step 1: Normalize ASCII multiply/divide to symbols ———
+    // We replace these first so all later logic only deals with × and ÷
+    let s = expr
+        .replace(/\*/g, '×')
+        .replace(/\//g, '÷');
+
+    // ——— Step 2: Handle + and - operators carefully ———
+    // We use a callback so we can decide if each + or - is binary, unary, or part of exponent notation
+    s = s.replace(/[+\-]/g, (op, idx) => {
+        const prev = s[idx - 1]; // char before operator
+
+        // — Case A: Scientific notation, e.g., "1.23e+5" —
+        // If preceded by 'e' or 'E', keep compact (no added spaces)
+        const isExponent = (op === '+' || op === '-') && (prev === 'e' || prev === 'E');
+        if (isExponent) {
+            return op;
+        }
+
+        // — Case B: Unary minus, e.g., "-5" or "(-3)" —
+        if (op === '-') {
+            // Find previous non-space character
+            const left = s.slice(0, idx).trimEnd().slice(-1);
+
+            // It's unary if at start OR follows another operator or '('
+            const isUnary = !left || ['(', '+', '-', '×', '÷'].includes(left);
+            if (isUnary) {
+                return '-'; // keep tight
+            }
+        }
+
+        // — Case C: Binary operator —
+        // Default: add spaces for readability
+        return ` ${op} `;
+    });
+
+    // ——— Step 3: Ensure spacing around × and ÷ ———
+    // At this point, they should only be binary, so safe to space them
+    s = s
+        .replace(/×/g, ' × ')
+        .replace(/÷/g, ' ÷ ');
+
+    // ——— Step 4: Cleanup ———
+    // Collapse multiple spaces into one and trim ends
+    s = s
+        .replace(/\s+/g, ' ')
         .trim();
-}
+
+    return s;
+};
 
 
 /**
