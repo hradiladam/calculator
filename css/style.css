@@ -30,7 +30,7 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 	background-color: rgb(228, 228, 228);
-	color: rgb(71, 71, 71);
+	color: rgb(73, 73, 73);
 	font-size: 2rem;
 	text-align: right;
 	border-radius: 6px;
@@ -70,9 +70,9 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: rgb(63, 63, 63);
+	color: rgb(65, 65, 65);
 	background-color:  rgb(219, 219, 219);
-	box-shadow: 0 0 1px rgba(0, 0, 0, 0.438);
+	box-shadow: 0 0 1px rgba(51, 51, 51, 0.438);
 	transition: background-color 0.2s ease, outline 0.2s ease;
 }
 
@@ -160,7 +160,7 @@ body {
 	position: absolute;
 	top: calc(100% + 1.5rem); 
 	right: 0;
-	width: 18rem;
+	width: 20rem;
 	max-height: 60vh;
 	min-height: 4rem;
 	overflow-y: auto;
@@ -239,7 +239,7 @@ body.dark-theme .calculator {
 body.dark-theme #display {
 	background-color: rgba(53,53,53,1);
 	color: rgb(235, 235, 235);
-	box-shadow: 0 0 1px rgba(255, 255, 255, 0.26);
+	box-shadow: 0 0 1px rgba(255, 255, 255, 0.404);
 }
 
 body.dark-theme #recent-history {
@@ -257,7 +257,7 @@ body.dark-theme #result.error-text {
 body.dark-theme .button {
 	background-color: rgba(68,68,68,1);
 	color: rgb(238, 238, 238);
-	box-shadow: 0 0 1px rgba(255, 255, 255, 0.521);
+	box-shadow: 0 0 1px rgba(255, 255, 255, 0.637);
 }
 
 body.dark-theme .button:hover {
@@ -323,6 +323,10 @@ body.dark-theme .history-empty {
 
 body.dark-theme .history-result {
 	color: rgba(236,111,111,1);
+}
+
+body.dark-theme .history-entry + .history-entry {
+	border-top: 1px solid rgba(255, 255, 255, 0.212);
 }
 
 /*─────────────────────────────────────────────────────────────*/
