@@ -77,6 +77,13 @@ test.describe('Expression Evaluation (End-to-End)', () => {
         await calculator.pressSequence('10+50%×10×50%=');
         await expect(calculator.result).toHaveText('12.5');
     });
+
+
+    // (1000 + 50%  → 1,500
+    test('evaluates grouping by thousands in result', async () => {
+        await calculator.pressSequence('1000+50%=');
+        await expect(calculator.result).toHaveText('1,500');
+    });
 });
 
 
