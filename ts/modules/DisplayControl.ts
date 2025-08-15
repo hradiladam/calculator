@@ -18,7 +18,7 @@ export default class DisplayControl {
 
     // Update the content of the display elements from state
     update = (): void => {
-        this.historyElement.textContent = this.state.recentHistory || 'No recent history';     // Update the history text
+        this.historyElement.textContent = this.state.recentHistory || 'No recent history';      // Update the history text
         this.resultElement.textContent = formatForDisplay(this.state.currentInput || '0');      // Update the result text
 
         // Only auto-scroll if we are NOT showing the final result (equals was not just pressed)

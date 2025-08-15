@@ -1,7 +1,7 @@
 // ts/modules/Evaluator.ts
 // ——— Wraps the fetch logic and error handling plus formatting for history display ———
 
-import { formatForHistory } from './formatter.js';
+import { formatForHistory, formatThousands } from './formatter.js';
 import State from './State.js';
 import DisplayControl from './DisplayControl.js';
 import HistoryPanel from './HistoryPanel.js';
@@ -32,7 +32,7 @@ export default class Evaluator {
         resultElement.classList.remove('error-text');
 
         // … inside the success path, before your fetch …
-        const expr = formatForHistory(this.state.currentInput); // format input once for both history UIs
+        const expr = formatForHistory(this.state.currentInput); // Format input once for both history UIs - forms base for recent history and history log out of current input
 
         try {
             const response = await fetch(getEvaluateUrl(), {
@@ -53,7 +53,8 @@ export default class Evaluator {
 
             } else {
                 // Success path
-                this.historyPanel.append(expr, data.result ?? '');
+                const formattedResult = formatThousands(data.result ?? '');
+                this.historyPanel.append(expr, formattedResult);
 
                 // Then update main display state
                 this.state.currentInput = data.result ?? '';
