@@ -172,30 +172,39 @@ test.describe('History Panel', () => {
         await expect(entryResult).toHaveCSS('color', 'rgb(236, 111, 111)');
     });
 
-    test('history shows grouped expression and grouped result after "="', async () => {
+	test('history shows grouped expression and grouped result after "="', async () => {
+		// Perform a large-number addition via button presses
 		await calculator.pressSequence('1000+2000=');
 
+		// Verify that the displayed result is correctly grouped with commas
 		await expect.poll(() => calculator.getResult()).toBe('3,000');
 
+		// Check that the recent history summary matches the grouped expression
 		const recent = await calculator.getRecentHistory();
 		expect(recent).toBe('1,000 + 2,000 =');
 
+		// Open the history panel and grab the first logged expression/result
 		await calculator.openHistory();
 		const expr = calculator.page.locator('#history-panel .history-entry .history-expression').first();
 		const res  = calculator.page.locator('#history-panel .history-entry .history-result').first();
 
+		// Verify grouping and correctness in the full history panel
 		await expect(expr).toHaveText('1,000 + 2,000 =');
 		await expect(res).toHaveText('3,000');
 	});
 
 	test('percentage + large integer formats correctly in history', async () => {
+		// Perform an addition with a percentage operand
 		await calculator.pressSequence('1000+20%=');
 
+		// Verify the result is calculated and grouped correctly
 		await expect.poll(() => calculator.getResult()).toBe('1,200');
 
+		// Check that the recent history summary is grouped and shows the % symbol
 		const recent = await calculator.getRecentHistory();
 		expect(recent).toBe('1,000 + 20% =');
 
+		// Open history and verify expression/result formatting
 		await calculator.openHistory();
 		const expr = calculator.page.locator('#history-panel .history-entry .history-expression').first();
 		const res  = calculator.page.locator('#history-panel .history-entry .history-result').first();
@@ -205,13 +214,17 @@ test.describe('History Panel', () => {
 	});
 
 	test('implicit multiplication with parentheses is grouped in history', async () => {
+		// Perform an implicit multiplication (number immediately followed by parentheses)
 		await calculator.pressSequence('1000(2)=');
 
+		// Verify the grouped result
 		await expect.poll(() => calculator.getResult()).toBe('2,000');
 
+		// Check the grouped expression in the recent history summary
 		const recent = await calculator.getRecentHistory();
 		expect(recent).toBe('1,000 × (2) =');
 
+		// Open history and verify grouped expression/result formatting
 		await calculator.openHistory();
 		const expr = calculator.page.locator('#history-panel .history-entry .history-expression').first();
 		const res  = calculator.page.locator('#history-panel .history-entry .history-result').first();
@@ -221,12 +234,17 @@ test.describe('History Panel', () => {
 	});
 
 	test('keyboard path produces grouped expression/result in history', async () => {
+		// Enter a large-number addition via keyboard input
 		await calculator.typeExpression('1000+3000=');
+
+		// Verify the grouped result on the display
 		await expect.poll(() => calculator.getResult()).toBe('4,000');
 
+		// Verify recent history summary matches grouped expression
 		const recent = await calculator.getRecentHistory();
 		expect(recent).toBe('1,000 + 3,000 =');
 
+		// Open history and confirm the grouped expression/result
 		await calculator.openHistory();
 		const expr = calculator.page.locator('#history-panel .history-entry .history-expression').first();
 		const res  = calculator.page.locator('#history-panel .history-entry .history-result').first();
@@ -236,20 +254,24 @@ test.describe('History Panel', () => {
 	});
 
 	test('history survives theme switch and remains grouped', async () => {
+		// Perform a calculation with large numbers so grouping applies
 		await calculator.pressSequence('4000+6000=');
 		await expect.poll(() => calculator.getResult()).toBe('10,000');
 
+		// Open history and verify exactly one entry exists
 		await calculator.openHistory();
 		const entries = calculator.page.locator('#history-panel .history-entry');
 		await expect(entries).toHaveCount(1);
 
-		// Switch theme and verify entry is unchanged
+		// Switch theme and verify entry count remains the same
 		await calculator.switchTheme();
-
 		await expect(entries).toHaveCount(1);
+
+		// Confirm the grouped expression/result remain unchanged after theme switch
 		await expect(entries.first().locator('.history-expression')).toHaveText('4,000 + 6,000 =');
 		await expect(entries.first().locator('.history-result')).toHaveText('10,000');
 	});
+
 })
 
 

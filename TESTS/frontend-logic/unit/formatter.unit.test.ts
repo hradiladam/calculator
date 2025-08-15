@@ -84,8 +84,7 @@ describe('formatter', () => {
         });
     });
 
-    // —— Extra tests: thousands separators and related edge cases ——
-
+    //  —— Thousands separators and related edge cases in history formatting ——
     describe('formatForHistory() — thousands separators', () => {
         // Adds commas in plain integers inside expressions
         test('groups thousands in integers within expressions', () => {
@@ -102,15 +101,16 @@ describe('formatter', () => {
             expect(formatForHistory('(1000)(2000)')).toBe('(1,000) × (2,000)');
         });
 
-        // Leaves scientific notation unchanged (no spaces, no commas inserted)
+        // Leaves scientific notation unchanged (no spaces, no commas)
         test('preserves scientific notation with large magnitudes', () => {
             expect(formatForHistory('1e+6')).toBe('1e+6');
             expect(formatForHistory('-2.5e-4')).toBe('-2.5e-4');
         });
     });
 
+    //  —— Thousands separators and related edge cases in display formatting  ——
     describe('formatForDisplay() — thousands separators', () => {
-        // Groups a plain integer as the user types
+        // Groups a plain integer
         test('groups a plain integer', () => {
             expect(formatForDisplay('1000')).toBe('1,000');
         });
