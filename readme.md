@@ -44,6 +44,8 @@ calculator/
 ├── tsconfig.json
 ├── package.json
 ├── package-lock.json
+├── playwright-ui.config.ts
+├── playwright-ui.config.ts
 ├── dist/ ← compiled frontend lives here
 ├── BACKEND/
 │   ├── app.ts
@@ -102,7 +104,7 @@ If you downloaded the ZIP, unzip it and open the folder.
 ```bash
 git clone https://github.com/hradiladam/calculator.git
 cd calculator
-npm install            # installs dev tools (TypeScript, Jest, Playwright…)
+npm install      # installs dev tools (TypeScript, Jest, Playwright…)
 ```
 
 2. Start the Backend: 
