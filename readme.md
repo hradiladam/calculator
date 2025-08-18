@@ -1,7 +1,11 @@
 # Calculator Project
-- This is a modern, web-based calculator built with vanilla JavaScript, HTML, and CSS, featuring a clean UI, robust input validation, advanced percentage handling, parentheses, and scientific notation. The frontend communicates with a Node.js + Express backend hosted on Render.com, which evaluates expressions using Math.js with BigNumber support for high-precision calculations.
+- This is a modern, web-based calculator built with vanilla JavaScript, HTML, and CSS, featuring a clean UI, robust input validation, advanced percentage handling, parentheses, and scientific notation. 
 
-- IMPORTANT NOTE: Since the backend is hosted on Render.com, it may take up to 30 seconds to respond on the first request. This delay happens because Render loads the backend from cold storage (a feature of their free tier) when it's not actively in use. 
+- The frontend is automatically compiled and deployed from the main branch via GitHub Actions to GitHub Pages.
+
+- The backend is written in TypeScript (Node.js + Express) and hosted on Render.com, where it evaluates expressions using Math.js with BigNumber support. hosted on Render.com, which evaluates expressions using Math.js with BigNumber support for high-precision calculations.
+
+- IMPORTANT NOTE: Since the backend is hosted on Render.com, it may take up to 40 seconds to respond on the first request. This delay happens because Render loads the backend from cold storage (a feature of their free tier) when it's not actively in use. 
 
 
 ## Tests
@@ -46,7 +50,6 @@ calculator/
 ├── package-lock.json
 ├── playwright-ui.config.ts
 ├── playwright-ui.config.ts
-├── dist/ ← compiled frontend lives here
 ├── BACKEND/
 │   ├── app.ts
 │   ├── index.ts
@@ -152,5 +155,5 @@ MIT — Free to use, modify, and build upon.
 ---
 
 
-> This project is a work in progress and will be gradually updated and improved. Planned future enhancements include unit and integration tests using Jest, changing recent history display into database with its own tests
+> This project is a work in progress and will be gradually updated and improved.
 
