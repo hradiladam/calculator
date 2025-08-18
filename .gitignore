@@ -22,12 +22,9 @@ Thumbs.db
 # Optional: environment or secrets
 **/.env
 
-# Optional: build artifacts
+# Build artifacts (frontend + backend)
 **/dist/
 **/build/
-
-# EXCEPTION: Keep root-level frontend dist for GitHub Pages
-!/dist/
 
 # Optional: log files
 *.log
