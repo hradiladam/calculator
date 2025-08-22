@@ -110,7 +110,7 @@ cd calculator
 npm install      # installs dev tools (TypeScript, Jest, Playwright…)
 ```
 
-2. Start the Backend: 
+2. Compile and start the Backend: 
 - This project uses a backend powered by Node.js and Express, with mathjs for calculations.
 - The backend is now written in **TypeScript**. You must compile it before running:
 
@@ -118,7 +118,7 @@ npm install      # installs dev tools (TypeScript, Jest, Playwright…)
 cd BACKEND
 npm install     # First-time setup
 npm run build   # Compiles TypeScript into dist/ using BACKEND/tsconfig.json (equivalent to: tsc -p .)
-npm start       # Start the server (runs dist/index.js)
+npm start       # Start the server (runs dist/index.js) at http://localhost:3000
 ```
 
 3. Compile the Frontend (TypeScript)
@@ -134,7 +134,7 @@ npm run watch:frontend
 - Open the project folder in VS Code with Live Extention installed
 - Right-click index.html
 - Select "Open with Live Server"
-- It opens in your browser at: http://127.0.0.1:5500/
+- It opens in your browser at: http://127.0.0.1:5500/ (Backend is automatically detected at http://localhost:3000)
 
 ### Option B: Python 3
 - open new terminal
@@ -144,8 +144,7 @@ npm run watch:frontend
 - python -m http.server 8000
 ```
 
-- open browser
-- go to: http://localhost:8000/index.html
+- open browser and go to: http://localhost:8000/index.html (Backend is automatically detected at http://localhost:3000)
 
 
 ## Licence
@@ -156,4 +155,3 @@ MIT — Free to use, modify, and build upon.
 
 
 > This project is a work in progress and will be gradually updated and improved.
-
