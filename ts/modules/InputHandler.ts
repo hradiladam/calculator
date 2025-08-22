@@ -72,12 +72,17 @@ export default class InputHandler {
             this.state.currentInput = '-';
         }
 
-        // Prevent multiple consecutive operators
-        if (this.state.operators.includes(trimmedInput.slice(-1))) {
-            this.state.currentInput = trimmedInput.slice(0, -1) + ` ${value} `;    // Replace the last operator with the new one
-        } else {
-            this.state.currentInput = `${trimmedInput} ${value} `;
-        }
+        // Prevent multiple consecutive operators → replace with the new one
+	if (this.state.operators.includes(trimmedInput.slice(-1))) {
+		// Replace the last operator (and any spaces around it) with ` value `
+		this.state.currentInput = this.state.currentInput.replace(
+			/\s*[+\-×÷]\s*$/, ` ${value} `
+		);
+
+	} else {
+		// Normal case: append with clean spacing
+		this.state.currentInput = `${trimmedInput} ${value} `;
+	}
     };
 
     // Function to handle percentages

@@ -64,6 +64,15 @@ describe('InputHandler.handleButtons() – unit tests', () => {
             expect(display.update).toHaveBeenCalled();
         });
 
+        test('insputing multiple operators in a row is not allowed', () => {
+            handler.handleButtons('1');
+            handler.handleButtons('+');
+            handler.handleButtons('×');
+            handler.handleButtons('-');
+            handler.handleButtons('1');
+            expect(state.currentInput).toBe('1 - 1');
+        });
+
         test('multiple digits accumulate', () => {
             handler.handleButtons('1');
             handler.handleButtons('2');
@@ -91,11 +100,7 @@ describe('InputHandler.handleButtons() – unit tests', () => {
             handler.handleButtons('×');
             // Still expecting the single-space version; this will fail demonstratively:
             expect(state.currentInput).toBe('5 × ');
-            });
-
-            // TODO:
-            // _handleOperator currently introduces extra spacing when replacing operators which formatForDisplay masks later;
-            // I should fix the operator‑replacement logic in _handleOperator so that the internal string uses consistent spacing without relying on the formatter.
+        });
     });
 
     // —— Tests for decimal and percent input ——
