@@ -17,22 +17,22 @@ calculator/
 ├── TESTS/
 │   ├── api/
 │   │   ├── POSTMAN/
-│   │   └── integration   # Supertest
+│   │   └── endpoint/   # Supertest
 │   ├── e2e/
 │   ├── ui/
 │   ├── backend-logic/
 │   │   ├── unit/
-│   │   └── component/
+│   │   └── integration/
 │   ├── frontend-logic/
 │   │   ├── unit/
-│   │   └── component/
+│   │   └── integration/
 │   └── playwright-setup/   # Shared infrastructure for UI and E2E tests
 │       ├── page/
 │       └── globalSetup.ts
 ├── playwright-ui.config.ts
 ├── playwright-e2e.config.ts
 ├── jest.config.cjs
-├── known-issues.txt
+├── known-issues.md
 └── readme-test.md
 ```
 
