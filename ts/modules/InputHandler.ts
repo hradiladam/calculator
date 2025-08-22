@@ -49,7 +49,7 @@ export default class InputHandler {
         const current = this.state.currentInput;
         // If last char is %, just append number directly (do not insert × visually)
         if (current.slice(-1) === '%') {
-            this.state.currentInput += value; // Let evaluateExpression() insert * for logic
+            this.state.currentInput += value;
         } else if (current === '0') {
             this.state.currentInput = value;
         } else {
@@ -82,27 +82,15 @@ export default class InputHandler {
 
     // Function to handle percentages
     _handlePercentage = (): void => {
-        // Trim trailing spaces to focus on the meaningful part of the input
-        const trimmedInput = this.state.currentInput.trim();
+        const trimmed = this.state.currentInput.trim();
 
-        // Check if the current input ends with a percentage
-        if (trimmedInput.slice(-1) === '%') {
-            // Check if the previous part of the string is a valid number followed by another percentage (e.g., '50%50%')
-            const lastNumber = this.state.currentInput.split(/[\+\-×÷\(\)]/).pop(); // Get the last number before operator or parentheses
-            if (lastNumber && !lastNumber.includes('%')) {
-                // If it's a valid number, we insert multiplication between percentages
-                this.state.currentInput += '*';
-            }
-        }
+        // Disallow directly after '('
+        if (trimmed.endsWith('(')) return;
 
-        // Prevent invalid placement of '%' (e.g., directly after '(')
-        if (trimmedInput.slice(-1) === '(') {
-            return;
-        }
-
-        // Append '%' to the input
+        // Append '%'; let formatting/eval handle any implicit ×
         this.state.currentInput += '%';
     };
+
 
     // Handle the decimal point
     _handleDecimal = (value: string): void => {
