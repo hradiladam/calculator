@@ -1,4 +1,4 @@
-// TESTS/api/integration/evaluate.endpoint.test.ts
+// TESTS/api/endpoint/evaluate.endpoint.test.ts
 import request from 'supertest';
 import app from '../../../BACKEND/app'; // Import the Express application (without starting the server)
 
@@ -55,6 +55,6 @@ describe('POST /evaluate', () => {
 
 
 
-// npx jest TESTS/api/integration/evaluate.endpoint.test.ts
+// npx jest TESTS/api/endpoint/evaluate.endpoint.test.ts
 
 

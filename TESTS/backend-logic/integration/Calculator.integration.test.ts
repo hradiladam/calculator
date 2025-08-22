@@ -1,5 +1,5 @@
-// TESTS/backend-logic/component/Calculator.component.test.ts
-// — COMPONENT TEST FOR Calculator.ts —
+// TESTS/backend-logic/integration/Calculator.component.test.ts
+// — INTEGRATION TEST FOR Calculator.ts —
 // Verifies the end‑to‑end evaluation pipeline of the Calculator service:
 // 1) Raw syntax checks via Validator
 // 2) Expression normalization via preprocessor
@@ -120,4 +120,4 @@ describe('Calculator component behavior', () => {
 });
 
 // Run with:
-// npx jest --selectProjects backend-logic --testPathPatterns=Calculator.component.test.ts
+// npx jest --selectProjects backend-logic --testPathPatterns=Calculator.integration.test.ts

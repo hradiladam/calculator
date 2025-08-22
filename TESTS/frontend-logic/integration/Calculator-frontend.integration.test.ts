@@ -1,5 +1,8 @@
-// TESTS/jest-tests/frontend-logic/component/Calculator-frontend.component.test.ts
+// TESTS/jest-tests/frontend-logic/integration/Calculator-frontend.integration.test.ts
 
+/**
+ * Frontend integration test with Jest + JSDOM: simulates button presses, stubs the API with fake fetch, and checks virtual DOM updates and request body.
+ */
 
 import State from '../../../ts/modules/State.js';
 import DisplayControl from '../../../ts/modules/DisplayControl.js';
@@ -124,4 +127,4 @@ describe('Calculator integration (Jest + JSDOM)', () => {
 });
 
 
-// npx jest --selectProjects frontend-logic --testPathPatterns=Calculator-frontend.component.test.ts
+// npx jest --selectProjects frontend-logic --testPathPatterns=Calculator-frontend.integration.test.ts

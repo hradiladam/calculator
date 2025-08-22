@@ -1,5 +1,5 @@
-// TESTS/frontend-logic/component/InputHandler.component.test.ts
-// —— COMPONENT TEST FOR InputHandler.ts ——
+// TESTS/frontend-logic/integration/InputHandler.integration.test.ts
+// —— INTEGRATION TEST FOR InputHandler.ts ——
 // This test verifies cross-module interaction between InputHandler, Evaluator, and DisplayControl
 // when "=" is pressed. It ensures that InputHandler orchestrates the flow correctly:
 //    • Delegates evaluation to Evaluator
@@ -77,4 +77,4 @@ describe('InputHandler.handleButtons() – component behavior', () => {
 
 
 
-// npx jest --selectProjects frontend-logic --testPathPatterns=InputHandler.component.test.ts
+// npx jest --selectProjects frontend-logic --testPathPatterns=InputHandler.integration.test.ts

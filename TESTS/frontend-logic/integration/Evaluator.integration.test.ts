@@ -1,5 +1,5 @@
-// TESTS/frontend-logic/component/Evaluator.component.test.ts
-// —— COMPONENT TEST FOR Evaluator.ts ——
+// TESTS/frontend-logic/integration/Evaluator.integration.test.ts
+// —— INTEGRATION TEST FOR Evaluator.ts ——
 // Verifies the full evaluate() flow (error then success) with mocked fetch.
 
 import Evaluator from '../../../ts/modules/Evaluator';
@@ -95,4 +95,4 @@ describe('Evaluator component behavior', () => {
 });
 
 
-// npx jest --selectProjects frontend-logic --testPathPatterns=Evaluator.component.test.ts
+// npx jest --selectProjects frontend-logic --testPathPatterns=Evaluator.integration.test.ts

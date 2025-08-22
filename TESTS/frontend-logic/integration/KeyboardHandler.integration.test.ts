@@ -1,4 +1,4 @@
-// TESTS/frontend-logic/component/KeyboardHandler.component.test.ts
+// TESTS/frontend-logic/integration/KeyboardHandler.integration.test.ts
 // —— UNIT TEST FOR KeyboardHandler.ts ——
 
 import KeyboardHandler from '../../../ts/modules/KeyboardHandler';
@@ -53,4 +53,4 @@ describe('KeyboardHandler', () => {
 })
 
 
-// npx jest --selectProjects frontend-logic --testPathPatterns=KeyboardHandler.component.test.ts
+// npx jest --selectProjects frontend-logic --testPathPatterns=KeyboardHandler.integration.test.ts
