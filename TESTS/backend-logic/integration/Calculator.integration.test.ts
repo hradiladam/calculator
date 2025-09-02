@@ -23,19 +23,9 @@ describe('Calculator component behavior', () => {
 		// 2) Bypass TypeScript private restriction to grab the math.js object
 		mathInstance = (calculator as any).math;
 
-		// 3) Save a bound reference to the original evaluate() method
-		const originalEvaluate = mathInstance.evaluate.bind(mathInstance);
-
-		// 4) Track calls to mathInstance.evaluate without changing its behavior
-		evalSpy = jest  
-			.spyOn(mathInstance, 'evaluate')    // Wrap the existing evaluate() method in a Jest spy so Jest can see when it's called
-            // The spy now tracks call count, arguments, etc., but by default still invokes the original implementation.
-			.mockImplementation((...args: any[]) => {   // Replace evaluate() with this function:
-                // originalEvaluate is the real evaluate() method we saved earlier
-                // By calling it here, we keep the exact same math.js behavior
-                return originalEvaluate(...args);  
-            });
-	    });
+		// 3) Spy on mathInstance.evaluate — real implementation still runs
+		evalSpy = jest.spyOn(mathInstance, 'evaluate');
+	});
 
 	afterEach(() => {
 		// restore all spies/mocks
