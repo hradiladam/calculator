@@ -33,14 +33,37 @@ export default class Calculator {
         if (this.validator.hasPercentDotAtEnd(raw)) {
             throw new Error("Cannot end with '%.'");
         }
+
         if (this.validator.hasInvalidPercentUsage(raw)) {
             throw new Error('Misplaced percent sign');
         }
+
         if (this.validator.hasUnmatchedParentheses(raw)) {
             throw new Error('Unmatched parentheses');
         }
+
         if (this.validator.endsWithOperator(raw)) {
             throw new Error('Incomplete expression');
+        }
+
+        if (this.validator.hasIllegalCharacters(raw)) {
+            throw new Error('Illegal character');
+        }
+
+        if (this.validator.hasConsecutiveOperators(raw)) {
+            throw new Error('Consecutive operators');
+        }
+
+        if (this.validator.hasOperatorFollowedByDot(raw)) {
+            throw new Error('Operator followed by dot');
+        }
+
+        if (this.validator.hasMultipleDotsInARow(raw)) {
+            throw new Error('Multiple dots in a row');
+        }
+        
+        if (this.validator.hasNumberWithMultipleDecimals(raw)) {
+            throw new Error('Number with multiple decimals');
         }
 
         // ——— Phase 2 ———

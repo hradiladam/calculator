@@ -36,4 +36,32 @@ export default class Validator {
     hasPercentDotAtEnd(expr: string): boolean {
         return /%\s*\.$/.test(expr);
     }   
+
+    // Multiple operators in a row (any combination)
+    hasConsecutiveOperators(expr: string): boolean {
+        return new RegExp(`[${Validator.operatorChars}]{2,}`).test(expr);
+    }
+
+    // Multiple decimal points directly in a row
+    hasMultipleDotsInARow(expr: string): boolean {
+        return /\.\s*\./.test(expr);
+    }
+
+    // A number containing more than one decimal point
+    hasNumberWithMultipleDecimals(expr: string): boolean {
+        const tokens = expr.split(/[^0-9.]+/).filter(Boolean);
+        return tokens.some(t => (t.match(/\./g) || []).length > 1);
+    }
+
+    // Illegal characters (anything outside digits, ops, (), ., %, whitespace)
+    hasIllegalCharacters(expr: string): boolean {
+        return /[^0-9\s.+\-*/×÷()%]/.test(expr);
+    }
+
+    /// Operator directly followed by a *bare* dot (e.g. "9+.")
+    // Valid cases: "9+.5", "9+5.", "9+ .5", "9+ 5."
+    hasOperatorFollowedByDot(expr: string): boolean {
+        // Match: operator → optional spaces → dot → NOT followed by digit or end of number
+        return new RegExp(`[${Validator.operatorChars}]\\s*\\.(?!\\d)`).test(expr);
+    }
 }
