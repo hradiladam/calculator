@@ -60,53 +60,92 @@ describe('Calculator component behavior', () => {
 		['(1+2',  'Unmatched parentheses'],
 		['+%5',   'Misplaced percent sign'],
 		['5%.',   "Cannot end with '%.'"],
+		['1++2',   'Consecutive operators'],
+		['1..2',   'Multiple dots in a row'],
+		['12.3.4', 'Number with multiple decimals'],
+		['9+.',    'Operator followed by dot'],
+		['2,5+1',  'Illegal character'],
 	])('"%s" throws "%s"', (input, errorMessage) => {
 		expect(() => calculator.evaluate(input)).toThrow(errorMessage);
+
 		if (input === '5/0') {
 			expect(evalSpy).not.toHaveBeenCalled();
 		}
 	});
 
+	// Raw guard should stop the pipeline before preprocess/evaluate
+	test.each([
+		// raw, error message
+		['1++2',   'Consecutive operators'],
+		['1..2',   'Multiple dots in a row'],
+		['12.3.4', 'Number with multiple decimals'],
+		['9+.',    'Operator followed by dot'],
+		['2,5+1',  'Illegal character'],
+		['5%.',    "Cannot end with '%.'"],
+		['2+',     'Incomplete expression'],
+		['(1+2',   'Unmatched parentheses'],
+		['+%5',    'Misplaced percent sign'],
+	])('raw guard: "%s" throws "%s" before preprocess/evaluate', (raw, err) => {
+		const preprocessSpy = jest.spyOn(preprocessor, 'preprocess');
+
+		expect(() => calculator.evaluate(raw)).toThrow(err);
+
+		// Must not preprocess or evaluate on raw validation failure
+		expect(preprocessSpy).not.toHaveBeenCalled();
+		expect(evalSpy).not.toHaveBeenCalled();
+	});
+
 	// Full pipeline: raw validation → preprocess → math.evaluate
 	test.each([
-        // [ raw input, expected preprocessed, expected final result ]
-        ['100+20%', '(100*(1+20/100))', '120'],
-        ['50-10%',  '(50*(1-10/100))',  '45'],
-        ['200*10%', '200*(10/100)',     '20'],
-        ['0.1/3',   '0.1/3',            '0.0333333333333'],
-        ['2(3+1)',  '2*(3+1)',          '8'],
-    ])(
-        'full pipeline "%s" → preprocess "%s" → result "%s"',
-        (raw, processed, expectedREsult) => {
+		// [ raw input, expected preprocessed, expected final result ]
+		['100+20%', '(100*(1+20/100))', '120'],
+		['50-10%',  '(50*(1-10/100))',  '45'],
+		['200*10%', '200*(10/100)',     '20'],
+		['0.1/3',   '0.1/3',            '0.0333333333333'],
+		['2(3+1)',  '2*(3+1)',          '8'],
+	])(
+		'full pipeline "%s" → preprocess "%s" → result "%s"',
+		(raw, processed, expectedREsult) => {
 
-            // Spy on every step
-            const unmatchedSpy  = jest.spyOn(Validator.prototype, 'hasUnmatchedParentheses');
-            const endsOpSpy     = jest.spyOn(Validator.prototype, 'endsWithOperator');
-            const invalidPctSpy = jest.spyOn(Validator.prototype, 'hasInvalidPercentUsage');
-            const divZeroSpy    = jest.spyOn(Validator.prototype, 'hasDivisionByZero');
-            const preprocessSpy = jest.spyOn(preprocessor, 'preprocess');
+			// Spy on every step
+			const guardNames: Array<keyof Validator> = [
+				'hasUnmatchedParentheses',
+				'endsWithOperator',
+				'hasInvalidPercentUsage',
+				'hasPercentDotAtEnd',
+				'hasIllegalCharacters',
+				'hasConsecutiveOperators',
+				'hasOperatorFollowedByDot',
+				'hasMultipleDotsInARow',
+				'hasNumberWithMultipleDecimals',
+			];
 
-            // Execute the full evaluate pipeline
-            const result = calculator.evaluate(raw);
+		// Create spies for all raw-input guards in one pass
+		const guardSpies = guardNames.map((name) =>
+			jest.spyOn(Validator.prototype, name as any)
+		);
 
-            // 1) Raw‐input syntax checks
-            expect(unmatchedSpy).toHaveBeenCalledWith(raw);
-            expect(endsOpSpy).toHaveBeenCalledWith(raw);
-            expect(invalidPctSpy).toHaveBeenCalledWith(raw);
+		const divZeroSpy = jest.spyOn(Validator.prototype, 'hasDivisionByZero');
+		const preprocessSpy = jest.spyOn(preprocessor, 'preprocess');
 
-            // 2) Preprocessing
-            expect(preprocessSpy).toHaveBeenCalledWith(raw);
+		// Execute the full evaluate pipeline
+		const result = calculator.evaluate(raw);
 
-            // 3) Division‐by‐zero guard on the preprocessed string
-            expect(divZeroSpy).toHaveBeenCalledWith(processed);
+		// 1) Raw‐input syntax checks
+		guardSpies.forEach((spy) => expect(spy).toHaveBeenCalledWith(raw));
 
-            // 4) math.js evaluation with the exact preprocessed expression
-            expect(evalSpy).toHaveBeenCalledWith(processed);
+		// 2) Preprocessing
+		expect(preprocessSpy).toHaveBeenCalledWith(raw);
 
-            // 5) Final formatted result
-            expect(result).toBe(expectedREsult);
-        }
-    );
+		// 3) Division‐by‐zero guard on the preprocessed string
+		expect(divZeroSpy).toHaveBeenCalledWith(processed);
+
+		// 4) math.js evaluation with the exact preprocessed expression
+		expect(evalSpy).toHaveBeenCalledWith(processed);
+
+		// 5) Final formatted result
+		expect(result).toBe(expectedREsult);
+	});
 });
 
 // Run with:
