@@ -14,9 +14,9 @@ All tests are written in **TypeScript** and are located in `TESTS/` folder.
 
 ```
 calculator/
+├── postman-collection/
 ├── TESTS/
-│   ├── api/
-│   │   ├── POSTMAN/
+│   ├── api/ 
 │   │   └── endpoint/   # Supertest
 │   ├── e2e/
 │   ├── ui/
