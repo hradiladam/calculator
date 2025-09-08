@@ -11,10 +11,9 @@
         "test": "jest",
         "test:frontend": "jest --selectProjects frontend-logic",
         "test:backend": "jest --selectProjects backend-logic",
-        "test:api": "jest --selectProjects api",
 
-        "test:ui": "playwright test --config=TESTS/playwright-setup/ui.config.ts",
-        "test:e2e": "playwright test --config=TESTS/playwright-setup/e2e.config.ts"
+        "test:pw": "playwright test --config=playwright.config.ts",
+        "test:pw:chromium": "playwright test --config=playwright.config.ts --project=e2e-chromium --project=e2e-cold-chromium"
     },
     
     "devDependencies": {
