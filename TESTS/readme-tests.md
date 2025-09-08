@@ -96,8 +96,11 @@ npx playwright test --config=playwright.config.ts
 ```
 
 Optional: Run only in chromium
+
 ```bash
-npx playwright test --config=playwright.config.ts --project=chromium
+npx playwright test --config=playwright.config.ts \
+  --project=e2e-chromium \
+  --project=e2e-cold-chromium
 ```
 
 ---
