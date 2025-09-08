@@ -2,7 +2,7 @@ This document lists non-critical known issues and quirks in the Calculator appli
 They do not affect functional correctness but are kept here for tracking and future cleanup.
 
 ======================================
-======================================
+
 
 002 – Multiple Zeros Are Accepted in Input
 
