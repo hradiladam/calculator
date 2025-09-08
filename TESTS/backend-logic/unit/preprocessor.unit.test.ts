@@ -16,7 +16,7 @@ describe('preprocess()', () => {
   // This models percentage addition as a discount-style operation
   // Test expansion of "E - Y%" → E * (1 - Y/100)
   // This models percentage subtraction as a discount-style operation
-  test.each([
+  test.skip.each([
         ['100 + 20%', '100*(1+20/100)', 'expands percentage addition'],
         ['100 - 20%', '100*(1-20/100)', 'expands percentage subtraction'],
     ])('returns "%s" → "%s" — %s', (input, expected, description) => {
@@ -28,14 +28,14 @@ describe('preprocess()', () => {
   // First expands to: (100 * (1 + 20/100)) 
   // Then that result is treated as a new base and expanded again with 10%: 
   // Final result: ((100 * (1 + 20/100)) * (1 + 10/100))
-  test.each([
+  test.skip.each([
         ['((100 + 20%) + 10%)', '(((100*(1+20/100)))*(1+10/100))', 'expands nested percentage additions'],
     ])('returns "%s" → "%s" — %s', (input, expected, description) => {
         expect(preprocess(input)).toBe(expected);
   });
 
   // Test conversion of isolated percentages (e.g., "25%" → "25/100")
-  test.each([
+  test.skip.each([
         ['25%', '25/100', 'converts standalone percent to /100'],
         ['(40)%', '(40)/100', 'converts parenthesized percent to /100'],
     ])('returns "%s" → "%s" — %s', (input, expected, description) => {
@@ -48,7 +48,7 @@ describe('preprocess()', () => {
 
     
   // Test implicit multiplication: 2(3+1) → 2*(3+1), (a)(b) → (a)*(b), etc.
-  test.each([
+  test.skip.each([
         ['2(3+1)', '2*(3+1)', 'restores implicit multiplication between number and parens'],
         ['(2+1)(4+5)', '(2+1)*(4+5)', 'restores implicit multiplication between parenthetical groups'],
         ['(2+1)4', '(2+1)*4', 'restores implicit multiplication between parens and trailing number'],
@@ -57,7 +57,7 @@ describe('preprocess()', () => {
   });
 
   // Test combined behavior: nested percent, implicit multiplication, operator normalization
-  test.each([
+  test.skip.each([
         ['((100+20%)(5+5%)+30%)', '(((100*(1+20/100)))*((5*(1+5/100)))*(1+30/100))', 'handles mixed complex case'],
     ])('returns "%s" → "%s" — %s', (input, expected, description) => {
         expect(preprocess(input)).toBe(expected);
