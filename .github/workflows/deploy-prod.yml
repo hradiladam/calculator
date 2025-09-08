@@ -3,6 +3,14 @@ name: Deploy prod (main → GitHub Pages)
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: "Ignore test failures and deploy anyway"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
 
 permissions:
   contents: read
@@ -14,33 +22,72 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  # Run Jest tests
+  jest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: npm
+      - run: npm ci
+      - name: Run Jest
+        run: npx jest --config=jest.config.cjs
 
-      - name: Install deps
-        run: npm ci
+  # Run Playwright tests
+  playwright:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - name: Run Playwright (normal + cold)
+        run: |
+          npx playwright test --config=playwright.config.ts \
+            --project=e2e-${{ matrix.browser }} \
+            --project=e2e-cold-${{ matrix.browser }}
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report
+          if-no-files-found: ignore
 
+  # Build site (only if tests passed OR override)
+  build:
+    needs: [jest, playwright]
+    if: ${{ needs.jest.result == 'success' && needs.playwright.result == 'success'|| (github.event_name == 'workflow_dispatch' && inputs.force_deploy == 'true') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
       - name: Build frontend (ts → dist/)
         run: npx tsc -p tsconfig.json
-
       - name: Stage site (root of Pages)
         run: |
           rm -rf _site
           mkdir _site
           cp -r index.html css dist _site/
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
 
+  # Deploy to GitHub Pages
   deploy:
     environment:
       name: github-pages
