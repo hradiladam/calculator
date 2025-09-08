@@ -1,8 +1,8 @@
-// TESTS/ui/functional-buttons-behaviour.test.ts
+// TESTS/e2e/functional-buttons-behaviour.test.ts
 // ——— BUTTON FUNCTIONALITY & UI BEHAVIOR TESTS ———
 
 import { test, expect } from '@playwright/test';
-import { CalculatorPage } from '../playwright-setup/page/CalculatorPage';
+import { CalculatorPage } from './page/CalculatorPage';
 
 
 let calculator: CalculatorPage;
@@ -98,4 +98,4 @@ test.describe('Button Input Behavior', () => {
 })
 
 
-// npx playwright test TESTS/ui/functional-buttons-behaviour.test.ts --config=playwright-ui.config.ts --project=Chromium
+// npx playwright test TESTS/e2e/functional-buttons-behaviour.test.ts --config=playwright.config.ts --project=e2e-chromium

@@ -1,7 +1,7 @@
 // TESTS/e2e/live-typing.test.ts
 
 import { test, expect } from '@playwright/test';
-import { CalculatorPage } from '../playwright-setup/page/CalculatorPage';
+import { CalculatorPage } from './page/CalculatorPage';
 
 let calculator: CalculatorPage;
 
@@ -55,4 +55,4 @@ test.describe('Display — live typing thousands separators', () => {
 });
 
 
-// npx playwright test TESTS/ui/live-typing.test.ts --config=playwright-ui.config.ts --project=Chromium
+// npx playwright test TESTS/e2e/live-typing.test.ts --config=playwright.config.ts --project=e2e-chromium

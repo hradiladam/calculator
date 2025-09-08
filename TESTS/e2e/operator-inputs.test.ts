@@ -1,8 +1,8 @@
-// TESTS/ui/operator-inputs.test.ts
+// TESTS/e2e/operator-inputs.test.ts
 // ——— OPERATOR HANDLING TESTS ———
 
 import { test, expect } from '@playwright/test';
-import { CalculatorPage } from '../playwright-setup/page/CalculatorPage';
+import { CalculatorPage } from './page/CalculatorPage';
 
 let calculator: CalculatorPage;
 
@@ -83,4 +83,4 @@ test.describe('Operator Handling', () => {
 });
 
 
-// npx playwright test TESTS/ui/operator-inputs.test.ts --config=playwright-ui.config.ts --project=Chromium
+// npx playwright test TESTS/e2e/operator-inputs.test.ts --config=playwright.config.ts --project=e2e-chromium

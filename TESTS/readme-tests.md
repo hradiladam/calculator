@@ -19,16 +19,16 @@ calculator/
 │   ├── api/ 
 │   │   └── endpoint/   # Supertest
 │   ├── e2e/
-│   ├── ui/
+│   │   ├── page/
+│   │   ├── setup/
+│   │   │   └── warmup.setup.ts
+│   │   └── cold/   # test with backend in cold storage that require warmup
 │   ├── backend-logic/
 │   │   ├── unit/
 │   │   └── integration/
 │   ├── frontend-logic/
 │   │   ├── unit/
 │   │   └── integration/
-│   └── playwright-setup/   # Shared infrastructure for UI and E2E tests
-│       ├── page/
-│       └── globalSetup.ts
 ├── playwright-ui.config.ts
 ├── playwright-e2e.config.ts
 ├── jest.config.cjs
@@ -78,9 +78,7 @@ Playwright is used to simulate **real user interaction** and test **UI rendering
 
 ### 🧠 Config Split
 
-Config File and Purpose
-- `playwright-ui.config.ts` | UI-only tests (frontend only)
-- `playwright-e2e.config.ts` | Full E2E tests (frontend + backend)
+
 
 ### How to Run
 
@@ -92,24 +90,14 @@ npm install
 npx playwright install
 ```
 
-3. Run UI tests
+3. Run tests
 ``` bash
-npx playwright test --config=playwright-ui.config.ts
+npx playwright test --config=playwright.config.ts
 ```
 
 Optional: Run only in chromium
 ```bash
-npx playwright test --config=playwright-ui.config.ts --project=chromium
-```
-
-4. Run E2E tests
-``` bash
-npx playwright test --config=playwright-e2e.config.ts
-```
-
-Optional: Run only in chromium
-```bash
-npx playwright test --config=playwright-e2e.config.ts --project=chromium
+npx playwright test --config=playwright.config.ts --project=chromium
 ```
 
 ---

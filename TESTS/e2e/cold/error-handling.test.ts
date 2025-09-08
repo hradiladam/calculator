@@ -1,8 +1,8 @@
-// TESTS/ui//error-handling.test.ts
+// TESTS/e2e/error-handling.test.ts
 // ——— ERROR HANDLING TESTS ———
 
 import { test, expect } from '@playwright/test';
-import { CalculatorPage } from '../playwright-setup/page/CalculatorPage';
+import { CalculatorPage } from '../page/CalculatorPage';
 
 let calculator: CalculatorPage;
 
@@ -42,4 +42,4 @@ test.describe('Error Handling (UI states)', () => {
 });
 
 
-// npx playwright test TESTS/ui/error-handling.test.ts --config=playwright-ui.config.ts --project=Chromium
+// npx playwright test TESTS/e2e/cold/error-handling.test.ts --config=playwright.config.ts --project=e2e-cold-chromium

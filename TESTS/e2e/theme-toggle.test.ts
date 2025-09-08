@@ -1,9 +1,9 @@
-// TESTS/ui/theme-toggle.test.ts
+// TESTS/e2e/theme-toggle.test.ts
 // ——— THEME TOGGLE TESTS (Dark/Light) ———
 
 
 import { test, expect } from '@playwright/test';
-import { CalculatorPage } from '../playwright-setup/page/CalculatorPage';
+import { CalculatorPage } from './page/CalculatorPage';
 
 // —— DESCRIBE BLOCK ——
 // A group of related tests. In this case, everything related to the theme switch feature.
@@ -73,14 +73,14 @@ test.describe('Theme Toggle', () => {
         await calculator.switchTheme();
 
         // C. Check the icon: it should now be the SUN icon (means "click to return to light")
-        const iconHtmlAfterSwitchingDark = await calculator.themeToggle.innerHTML();
+        const iconHtmlAfterSwitchingDark = await calculator.themeToggleBtn.innerHTML();
         expect(iconHtmlAfterSwitchingDark).toContain('fa-sun'); // because we are now in dark mode
 
         // D. Second click — disables dark mode again
         await calculator.switchTheme();
 
         // Check the icon again: should be the MOON icon (means "click to go to dark mode")
-        const iconHtmlAfterSwitchingLight = await calculator.themeToggle.innerHTML();
+        const iconHtmlAfterSwitchingLight = await calculator.themeToggleBtn.innerHTML();
         expect(iconHtmlAfterSwitchingLight).toContain('fa-moon'); // because we are now in light mode
     });
 
@@ -109,7 +109,7 @@ test.describe('Theme Toggle', () => {
 
 
 // PLAYWRIGHT CODEGEN: "npx playwright codegen https://hradiladam.github.io/calculator/"
-// npx playwright test TESTS/ui/theme-toggle.test.ts --config=playwright-ui.config.ts --project=Chromium
+// npx playwright test TESTS/e2e/theme-toggle.test.ts --config=playwright.config.ts --project=e2e-Chromium
 
 
 
