@@ -26,26 +26,22 @@ describe('POST /evaluate', () => {
 
   // Error validation responses
   describe('validation and error handling', () => {
-        test.each([
-            // The validator in app.ts returns this exact error message
-            ['    ', 400, 'Expression must be a non-empty string', 'rejects empty or whitespace-only expressions'],
+    type Case = { expression: string; status: number; errorMsg: string; description: string };
 
-            // Error message should mention "Unmatched parentheses"
-            ['(2+3', 400, 'Unmatched parentheses', 'rejects unmatched parentheses'],
+        // Each case: [expression, expected HTTP status, expected error message substring, description]
+        const cases: Case[] = [
+            { expression: '    ', status: 400, errorMsg: 'Expression must be a non-empty string', description: 'rejects empty or whitespace-only expressions' },
+			{ expression: '(2+3', status: 400, errorMsg: 'Unmatched parentheses',                 description: 'rejects unmatched parentheses' },
+			{ expression: '5/0',  status: 400, errorMsg: "Can't divide by 0",                     description: 'rejects division by zero' },
+			{ expression: '5+',   status: 400, errorMsg: 'Incomplete expression',                 description: 'rejects expressions ending with operator' },
+			{ expression: '5+%',  status: 400, errorMsg: 'Misplaced percent sign',                description: 'rejects misplaced percent sign' },
+        ];
 
-            // Semantic validation: can't divide by zero
-            ['5/0', 400, "Can't divide by 0", 'rejects division by zero'],
-
-            // Incomplete expression ends in '+'
-            ['5+', 400, 'Incomplete expression', 'rejects expressions ending with operator'],
-
-            // A percent sign immediately after operator is invalid
-            ['5+%', 400, 'Misplaced percent sign', 'rejects misplaced percent sign'],
-        ])('returns %d for "%s" — %s', async (expression, status, errorMsg, description) => {
+        test.each(cases)('returns $status for "$expression" — $description', async ({ expression, status, errorMsg }) => {
             const res = await request(app)
-                .post('/evaluate')
-                .send({ expression })
-                .expect(status);
+				.post('/evaluate')
+				.send({ expression })
+				.expect(status);
 
             expect(res.body).toHaveProperty('error');
             expect(res.body.error).toMatch(errorMsg); // Error string should contain the message
