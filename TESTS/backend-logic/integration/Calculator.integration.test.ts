@@ -7,9 +7,9 @@
 // We spy on the internal math.evaluate method to ensure Calculator delegates
 // to math.js correctly without modifying its behavior.
 
-import Calculator from '../../../BACKEND/services/Calculator';
-import Validator from '../../../BACKEND/utils/Validator';
-import * as preprocessor from '../../../BACKEND/utils/preprocessor';
+import Calculator from '../../../apps/BACKEND/services/Calculator';
+import Validator from '../../../apps/BACKEND/utils/Validator';
+import * as preprocessor from '../../../apps/BACKEND/utils/preprocessor';
 
 describe('Calculator component behavior', () => {
 	let calculator: Calculator;

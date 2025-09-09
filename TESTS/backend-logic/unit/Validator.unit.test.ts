@@ -2,7 +2,7 @@
 //  —— UNIT TESTS FOR Validator.ts ——
 // These tests verify all validation methods used before evaluating math expressions.
 
-import Validator from '../../../BACKEND/utils/Validator';
+import Validator from '../../../apps/BACKEND/utils/Validator';
 
 
 describe('Validator', () => {

@@ -5,10 +5,10 @@
 //    • Delegates evaluation to Evaluator
 //    • Triggers a Display update afterwards
 
-import InputHandler from '../../../ts/modules/InputHandler';
-import State from '../../../ts/modules/State';
-import Evaluator from '../../../ts/modules/Evaluator';
-import DisplayControl from '../../../ts/modules/DisplayControl';
+import InputHandler from '../../../apps/FRONTEND/ts/modules/InputHandler';
+import State from '../../../apps/FRONTEND/ts/modules/State';
+import Evaluator from '../../../apps/FRONTEND/ts/modules/Evaluator';
+import DisplayControl from '../../../apps/FRONTEND/ts/modules/DisplayControl';
 
 describe('InputHandler.handleButtons() – component behavior', () => {
     let state: State;

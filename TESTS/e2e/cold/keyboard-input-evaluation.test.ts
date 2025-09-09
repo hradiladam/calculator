@@ -33,3 +33,12 @@ test.describe('Keyboard Input', () => {
 });
 
 // npx playwright test TESTS/e2e/cold/keyboard-input-evaluation.test.ts --config=playwright.config.ts --project=e2e-cold-chromium
+
+
+/* On live server:
+
+PW_BASE_URL=https://hradiladam.github.io/calculator/ \
+npx playwright test TESTS/e2e/cold/keyboard-input-evaluation.test.ts \
+  --project=e2e-cold-chromium --config=playwright.config.ts
+
+*/

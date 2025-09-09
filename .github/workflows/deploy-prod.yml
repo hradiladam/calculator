@@ -24,17 +24,17 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: Install deps
+      - name: Install deps (workspace root)
         run: npm ci
 
-      - name: Build frontend (ts → dist/)
-        run: npx tsc -p tsconfig.json
+      - name: Build frontend (ts → apps/FRONTEND/dist)
+        run: npx tsc -p apps/FRONTEND/tsconfig.json
 
       - name: Stage site (root of Pages)
         run: |
           rm -rf _site
           mkdir _site
-          cp -r index.html css dist _site/
+          cp -r apps/FRONTEND/index.html apps/FRONTEND/css apps/FRONTEND/dist _site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

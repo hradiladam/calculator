@@ -1,6 +1,6 @@
 // TESTS/api/endpoint/evaluate.endpoint.test.ts
 import request from 'supertest';
-import app from '../../../BACKEND/app'; // Import the Express application (without starting the server)
+import app from '../../../apps/BACKEND/app'; // Import the Express application (without starting the server)
 
 // All tests for the evaluate endpoint
 describe('POST /evaluate', () => {

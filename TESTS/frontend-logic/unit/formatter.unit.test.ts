@@ -1,7 +1,7 @@
 // TESTS/frontend-logic/unit/formatter.unit.test.ts
 // —— Unit tests for formatter.ts ——
 
-import { formatForHistory, formatForDisplay } from '../../../ts/modules/formatter';
+import { formatForHistory, formatForDisplay } from '../../../apps/FRONTEND/ts/modules/formatter';
 
 describe('formatter', () => {
 

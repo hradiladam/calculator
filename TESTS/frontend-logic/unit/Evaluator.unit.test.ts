@@ -4,10 +4,10 @@
 //  • Mock fetch to return success, error, and network failure
 //  • Verify state and display mutations in each case
 
-import Evaluator from '../../../ts/modules/Evaluator';
-import State from '../../../ts/modules/State';
-import DisplayControl from '../../../ts/modules/DisplayControl';
-import HistoryPanel from '../../../ts/modules/HistoryPanel';
+import Evaluator from '../../../apps/FRONTEND/ts/modules/Evaluator';
+import State from '../../../apps/FRONTEND/ts/modules/State';
+import DisplayControl from '../../../apps/FRONTEND/ts/modules/DisplayControl';
+import HistoryPanel from '../../../apps/FRONTEND/ts/modules/HistoryPanel';
 
 
 describe('Evaluator.evaluate() – unit tests', () => {

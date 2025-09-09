@@ -2,11 +2,11 @@
 // —— INTEGRATION TEST FOR Evaluator.ts ——
 // Verifies the full evaluate() flow (error then success) with mocked fetch.
 
-import Evaluator from '../../../ts/modules/Evaluator';
-import State from '../../../ts/modules/State';
-import DisplayControl from '../../../ts/modules/DisplayControl';
-import { formatForHistory } from '../../../ts/modules/formatter';
-import HistoryPanel from '../../../ts/modules/HistoryPanel';
+import Evaluator from '../../../apps/FRONTEND/ts/modules/Evaluator';
+import State from '../../../apps/FRONTEND/ts/modules/State';
+import DisplayControl from '../../../apps/FRONTEND/ts/modules/DisplayControl';
+import { formatForHistory } from '../../../apps/FRONTEND/ts/modules/formatter';
+import HistoryPanel from '../../../apps/FRONTEND/ts/modules/HistoryPanel';
 
 describe('Evaluator component behavior', () => {
     let state: State;

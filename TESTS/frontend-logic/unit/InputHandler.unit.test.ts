@@ -17,9 +17,9 @@
 // These tests confirm that InputHandler correctly delegates to helper methods and external modules,
 // modifies the internal State properly, and ensures the display stays in sync with user input.
 
-import InputHandler from '../../../ts/modules/InputHandler';
-import State from '../../../ts/modules/State';
-import DisplayControl from '../../../ts/modules/DisplayControl';
+import InputHandler from '../../../apps/FRONTEND/ts/modules/InputHandler';
+import State from '../../../apps/FRONTEND/ts/modules/State';
+import DisplayControl from '../../../apps/FRONTEND/ts/modules/DisplayControl';
 
 describe('InputHandler.handleButtons() – unit tests', () => {
     let state: State;

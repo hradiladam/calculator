@@ -2,7 +2,7 @@
 // —— UNIT TESTS FOR preprocessor.ts ——
 // These tests verify correct transformation of expressions for math.js
 
-import { preprocess } from '../../../BACKEND/utils/preprocessor';
+import { preprocess } from '../../../apps/BACKEND/utils/preprocessor';
 
 describe('preprocess()', () => {
     // Test normalization of display operators to standard math symbols

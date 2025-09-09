@@ -30,37 +30,31 @@ This project includes:
 
 ```
 calculator/
-├── index.html
-├── css/
-│   ├── reset.css
-│   └── style.css
-├── ts/
-│   ├── main.ts
-│   ├── config-api.ts
-│   └── modules/
-│       ├── DisplayControl.ts
-│       ├── State.ts
-│       ├── InputsHandler.ts
-│       ├── Evaluator.ts
-│       ├── KeyboardHandler.ts
-│       └── ThemeSwitch.ts
-├── jest.config.cjs
-├── tsconfig.json
-├── package.json
-├── package-lock.json
-├── playwright-ui.config.ts
-├── playwright-ui.config.ts
-├── BACKEND/
-│   ├── app.ts
-│   ├── index.ts
-│   ├── services/
-│   │   └── Calculator.ts
-│   ├── utils/
-│   │   ├── Validator.ts
-│   │   └── preprocessor.ts
-│   ├── package-lock.json
-│   ├── package.json
-│   └── tsconfig.json
+├── apps
+│     ├── FRONTEND/
+│     │    ├── index.html
+│     │    ├── css/
+│     │    │   ├── reset.css
+│     │    │   └── style.css
+│     │    └── ts/
+│     │        ├── main.ts
+│     │        ├── config-api.ts
+│     │        └── modules/
+│     │            ├── DisplayControl.ts
+│     │            ├── State.ts
+│     │            ├── InputsHandler.ts
+│     │            ├── Evaluator.ts
+│     │            ├── KeyboardHandler.ts
+│     │            └── ThemeSwitch.ts
+│     └── BACKEND/
+│         ├── app.ts
+│         ├── index.ts
+│         ├── services/
+│         │   └── Calculator.ts
+│         └── utils/
+│             ├── Validator.ts
+│             └── preprocessor.ts
+├── postman-collection
 └── TESTS/
 ```
 
@@ -115,36 +109,25 @@ npm install      # installs dev tools (TypeScript, Jest, Playwright…)
 - The backend is now written in **TypeScript**. You must compile it before running:
 
 ```bash
-cd BACKEND
-npm install     # First-time setup
 npm run build   # Compiles TypeScript into dist/ using BACKEND/tsconfig.json (equivalent to: tsc -p .)
-npm start       # Start the server (runs dist/index.js) at http://localhost:3000
+npm run start:backend:ts       # Start the server (runs dist/index.js) at http://localhost:3000
 ```
+
+Check terminal → should log:
+Calculator API listening on port 3000
 
 3. Compile the Frontend (TypeScript)
 - From the project root, compile frontend `.ts` files into `/dist`:
 
 ```bash
-npm run watch:frontend
+npm run serve:frontend
 ```
 
 4. Start the frontend: Choose one of the two options below
 
 ### Option A: VS Code + Live Server
-- Open the project folder in VS Code with Live Extention installed
-- Right-click index.html
-- Select "Open with Live Server"
-- It opens in your browser at: http://127.0.0.1:5500/ (Backend is automatically detected at http://localhost:3000)
-
-### Option B: Python 3
-- open new terminal
-
-```bash
-- cd path/to/project/root
-- python -m http.server 8000
-```
-
-- open browser and go to: http://localhost:8000/index.html (Backend is automatically detected at http://localhost:3000)
+- open this exact URL (so FE picks the local API):
+- http://127.0.0.1:5500/index.html
 
 
 ## Licence

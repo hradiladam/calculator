@@ -1,7 +1,7 @@
 // TESTS/frontend-logic/unit/State.unit.test.ts
 // —— UNIT TEST FOR State.ts ——
 
-import State from '../../../ts/modules/State';
+import State from '../../../apps/FRONTEND/ts/modules/State';
 
 describe('State', () => {
     let state: State;
