@@ -2,7 +2,7 @@
 // ——— EXPRESSION EVALUATION END-TO-END TESTS ———
 
 import { test, expect } from '@playwright/test';
-import { CalculatorPage } from '../page/CalculatorPage';
+import { CalculatorPage } from './page/CalculatorPage';
 
 let calculator: CalculatorPage;
 

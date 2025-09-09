@@ -21,8 +21,7 @@ calculator/
 │   ├── e2e/
 │   │   ├── page/
 │   │   ├── setup/
-│   │   │   └── warmup.setup.ts
-│   │   └── cold/   # test with backend in cold storage that require warmup
+│   │       └── globalSetup.ts
 │   ├── backend-logic/
 │   │   ├── unit/
 │   │   └── integration/
@@ -40,6 +39,8 @@ calculator/
 Jest is used to test both frontend and backend logic in isolation and in in API backend integration.
 
 ### How to run
+
+##  . Logic Tests (Jest)
 
 1.  Install Jest in app ROOT 
 ``` bash
@@ -85,9 +86,11 @@ npm install
 npx playwright install
 ```
 
+
 3. Run tests:
 
-**Locally:**
+### Locally
+
 Make sure both frontned and backend are compiled and running (readme.md)
 
 ``` bash
@@ -98,10 +101,20 @@ Optional: Run only in chromium
 
 ```bash
 npx playwright test --project=e2e-chromium --config=playwright.config.ts
-
 ```
 
-On live server
+Optional: Run only in firefox
+
+```bash
+npx playwright test --project=e2e-firefox --config=playwright.config.ts
+```
+
+Optional: Run only in webkit
+```bash
+npx playwright test --project=e2e-webkit --config=playwright.config.ts
+```
+
+### On live server
 
 ```bash
 PW_BASE_URL=https://hradiladam.github.io/calculator/ \
@@ -113,6 +126,22 @@ Optional: Run only in chromium
 ```bash
 PW_BASE_URL=https://hradiladam.github.io/calculator/ \
 npx playwright test --project=e2e-chromium --config=playwright.config.ts
+
+```
+
+Optional: Run only in firefox
+
+```bash
+PW_BASE_URL=https://hradiladam.github.io/calculator/ \
+npx playwright test --project=e2e-firefox --config=playwright.config.ts
+
+```
+
+Optional: Run only in webkit
+
+```bash
+PW_BASE_URL=https://hradiladam.github.io/calculator/ \
+npx playwright test --project=e2e-webkit --config=playwright.config.ts
 
 ```
 

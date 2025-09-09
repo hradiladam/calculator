@@ -32,16 +32,22 @@ module.exports = {
 			moduleFileExtensions: ['ts', 'js', 'json'],
 
 			moduleNameMapper: {
-				// Rewrite the config-api helper import
+				// Rewrite config-api imports (direct or deep relative)
 				'^\\.\\./config-api(?:\\.js)?$':
 					'<rootDir>/apps/FRONTEND/ts/config-api.ts',
+				'^(?:\\.\\./)+apps/FRONTEND/ts/config-api(?:\\.js)?$':
+					'<rootDir>/apps/FRONTEND/ts/config-api.ts',
 
-				// Rewrite app-local imports like "./State.js" → apps/FRONTEND/ts/modules/State.ts
+				// Handle "./State.js", "./formatter.js", etc. inside modules
 				'^\\./(formatter|State|Evaluator|DisplayControl|KeyboardHandler|ThemeSwitch|InputHandler|HistoryPanel)(?:\\.js)?$':
 					'<rootDir>/apps/FRONTEND/ts/modules/$1.ts',
 
-				// Rewrite deep-relative TESTS imports like "../../../ts/modules/State"
+				// Handle "../../../ts/modules/State.js" from TESTS
 				'^(?:\\.\\./)+ts/modules/(formatter|State|Evaluator|DisplayControl|KeyboardHandler|ThemeSwitch|InputHandler|HistoryPanel)(?:\\.js)?$':
+					'<rootDir>/apps/FRONTEND/ts/modules/$1.ts',
+
+				// Handle "../../../apps/FRONTEND/ts/modules/State.js" from TESTS
+				'^(?:\\.\\./)+apps/FRONTEND/ts/modules/(formatter|State|Evaluator|DisplayControl|KeyboardHandler|ThemeSwitch|InputHandler|HistoryPanel)(?:\\.js)?$':
 					'<rootDir>/apps/FRONTEND/ts/modules/$1.ts'
 			}
 		}

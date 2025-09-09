@@ -1,7 +1,7 @@
 // TESTS/e2e/cold/history-panel.test.ts
 
 import { test, expect } from '@playwright/test';
-import { CalculatorPage } from '../page/CalculatorPage';
+import { CalculatorPage } from './page/CalculatorPage';
 
 let calculator: CalculatorPage;
 
