@@ -13,7 +13,7 @@
         "rootDir": "ts"
     },
     "include": [
-        "ts/**/*.ts"                  // ← only your frontend code
+        "ts/**/*.ts"
     ],
     "exclude": [
         "node_modules",
