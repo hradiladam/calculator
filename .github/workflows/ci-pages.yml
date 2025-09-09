@@ -1,0 +1,88 @@
+name: CI + Deploy (Pages)
+
+on:
+  push:
+    branches: [ testing, main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (Jest + Playwright)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install deps (workspace root)
+        run: npm ci
+
+      # Build FE once so Playwright can serve apps/FRONTEND/dist/
+      - name: Build frontend (ts → apps/FRONTEND/dist)
+        run: npx tsc -p apps/FRONTEND/tsconfig.json
+
+      - name: Run Jest (all projects)
+        run: npm test
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      # Playwright defaults to LOCAL (your config). It will auto-start servers.
+      - name: Run Playwright
+        run: npx playwright test --config=playwright.config.ts
+
+  build_pages:
+    name: Build Pages artifact
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install deps (workspace root)
+        run: npm ci
+
+      - name: Build frontend (ts → apps/FRONTEND/dist)
+        run: npx tsc -p apps/FRONTEND/tsconfig.json
+
+      - name: Stage site (root of Pages)
+        run: |
+          rm -rf _site
+          mkdir _site
+          cp -r apps/FRONTEND/index.html apps/FRONTEND/css apps/FRONTEND/dist _site/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy_pages:
+    name: Deploy to GitHub Pages
+    needs: build_pages
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
