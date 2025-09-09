@@ -1,29 +1,41 @@
 # Calculator Project
-- This is a modern, web-based calculator built with vanilla JavaScript, HTML, and CSS, featuring a clean UI, robust input validation, advanced percentage handling, parentheses, and scientific notation. 
+- This is a modern, web-based calculator built with **TypeScript**, **Node.js/Express**, and **vanilla HTML/CSS**.  
+It features a clean UI, robust input validation, advanced percentage handling, parentheses, and scientific notation.
 
-- The frontend is automatically compiled and deployed from the main branch via GitHub Actions to GitHub Pages.
+The project is structured as a **monorepo**:
 
-- The backend is written in TypeScript (Node.js + Express) and hosted on Render.com, where it evaluates expressions using Math.js with BigNumber support. hosted on Render.com, which evaluates expressions using Math.js with BigNumber support for high-precision calculations.
+- **Frontend (`apps/FRONTEND`)**  
+  TypeScript + HTML/CSS, automatically compiled and deployed to **GitHub Pages** from `main` via GitHub Actions.  
 
-- IMPORTANT NOTE: Since the backend is hosted on Render.com, it may take up to 40 seconds to respond on the first request. This delay happens because Render loads the backend from cold storage (a feature of their free tier) when it's not actively in use. 
+- **Backend (`apps/BACKEND`)**  
+  TypeScript + Express + Math.js (BigNumber mode), deployed automatically to **Render.com**. 
 
 
-## Tests
+## Deployment
 
-This project includes:
-### Postman test suite (/TESTS/postman-tests)
-- Covers valid and invalid calculator expressions using CSV-based data-driven testing.
-- See /TESTS/postman-tests/README.md for details.
+- **Frontend (UI):** [Calculator on GitHub Pages](https://hradiladam.github.io/calculator/)  
+- **Backend (API):** [Render Service](https://calculator-yzjs.onrender.com/evaluate)  
 
-### Playwright test suite (/TESTS/playwright-tests)
-- Provides automated UI and end-to-end tests using the Playwright Test Runner in TypeScript.
-- Tests cover expression evaluation, button interaction, visual behavior (hover/active), theme switching, and error styling.
-- See /TESTS/playwright-tests/README.md for details.
+**Note:** On Render free tier, the backend may take up to **40 seconds** to respond to the first request (cold start). 
 
-### Jest test suite(/TESTS/jest-tests)
-- **Jest** for test running, assertions, and mocking  
-- **Supertest** for end‑to‑end HTTP tests against our Express
-- See /TESTS/jest-tests/README.md for details.
+---
+
+
+This project includes three levels of automated testing (see `/TESTS`):
+
+- **Jest (unit/integration)**  
+  - Frontend logic (DOM interactions, modules)  
+  - Backend logic (services, API via Supertest)  
+
+- **Playwright (E2E UI)**  
+  - Simulates real user interaction with calculator UI  
+  - Covers expression evaluation, buttons, theme toggle, error styling  
+  - Runs against **local dev servers** by default, can target live with `PW_BASE_URL`  
+
+- **Postman**  
+  - API request suite covering valid/invalid expressions  
+
+---
 
 
 ## Project Structure
@@ -123,16 +135,14 @@ Calculator API listening on port 3000
 npm run serve:frontend
 ```
 
-4. Start the frontend: Choose one of the two options below
+4. Start the frontend: 
 
-### Option A: VS Code + Live Server
 - open this exact URL (so FE picks the local API):
 - http://127.0.0.1:5500/index.html
 
 
 ## Licence
 MIT — Free to use, modify, and build upon.
-
 
 ---
 
