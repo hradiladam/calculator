@@ -1,0 +1,144 @@
+# .github/workflows/ci.yml
+name: CI (tests on PR; full tests + Pages deploy on main)
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  # 1) JEST (unit/integration) — PRs and main
+  jest:
+    name: Jest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Run Jest
+        run: npm test
+        env:
+          CI: true
+
+
+  # 2a) E2E (Chromium) — PR only
+  e2e_chromium_pr:
+    name: E2E (Chromium) — PR
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    needs: [jest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Install Playwright (browsers & deps)
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright (Chromium only)
+        run: npx playwright test --project=e2e-chromium --config=playwright.config.ts
+
+      - name: Upload Playwright HTML report (PR)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-pr
+          path: playwright-report
+          if-no-files-found: ignore
+          retention-days: 7
+
+
+  # 2b) E2E (Chromium, Firefox, WebKit) — main only
+  e2e_all_main:
+    name: E2E (Chromium, Firefox, WebKit) — main
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    needs: [jest]
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [e2e-chromium, e2e-firefox, e2e-webkit]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Install Playwright (browsers & deps)
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright (${{ matrix.browser }})
+        run: npx playwright test --project=${{ matrix.browser }} --config=playwright.config.ts
+
+      - name: Upload Playwright HTML report (${{ matrix.browser }})
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report
+          if-no-files-found: ignore
+          retention-days: 7
+
+  # 3) Build & Deploy to GitHub Pages — only after full tests on main
+  build_and_deploy_pages:
+    name: Build & Deploy Pages (main)
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    needs: [jest, e2e_all_main]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps (workspace root)
+        run: npm ci
+
+      - name: Build frontend (ts → apps/FRONTEND/dist)
+        run: npx tsc -p apps/FRONTEND/tsconfig.json
+
+      - name: Stage site (root of Pages)
+        run: |
+          rm -rf _site
+          mkdir _site
+          cp -r apps/FRONTEND/index.html apps/FRONTEND/css apps/FRONTEND/dist _site/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
