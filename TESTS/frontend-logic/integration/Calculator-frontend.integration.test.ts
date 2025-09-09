@@ -4,12 +4,12 @@
  * Frontend integration test with Jest + JSDOM: simulates button presses, stubs the API with fake fetch, and checks virtual DOM updates and request body.
  */
 
-import State from '../../../apps/FRONTEND/ts/modules/State.js';
-import DisplayControl from '../../../apps/FRONTEND/ts/modules/DisplayControl.js';
-import Evaluator from '../../../apps/FRONTEND/ts/modules/Evaluator.js';
-import InputHandler from '../../../apps/FRONTEND/ts/modules/InputHandler.js';
-import { formatForHistory } from '../../../apps/FRONTEND/ts/modules/formatter.js';
-import HistoryPanel from '../../../apps/FRONTEND/ts/modules/HistoryPanel.js';
+import State from '../../../apps/FRONTEND/ts/modules/State';
+import DisplayControl from '../../../apps/FRONTEND/ts/modules/DisplayControl';
+import Evaluator from '../../../apps/FRONTEND/ts/modules/Evaluator';
+import InputHandler from '../../../apps/FRONTEND/ts/modules/InputHandler';
+import { formatForHistory } from '../../../apps/FRONTEND/ts/modules/formatter';
+import HistoryPanel from '../../../apps/FRONTEND/ts/modules/HistoryPanel';
 
 // ————— Helpers —————
 
