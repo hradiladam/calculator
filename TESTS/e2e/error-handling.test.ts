@@ -42,4 +42,4 @@ test.describe('Error Handling (UI states)', () => {
 });
 
 
-// npx playwright test TESTS/e2e/cold/error-handling.test.ts --config=playwright.config.ts --project=e2e-cold-chromium
+// npx playwright test TESTS/e2e/error-handling.test.ts --config=playwright.config.ts --project=e2e-chromium

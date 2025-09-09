@@ -1,4 +1,4 @@
-// TESTS/e2e/cold/expression-evaluation.test.ts
+// TESTS/e2e/expression-evaluation.test.ts
 // ——— EXPRESSION EVALUATION END-TO-END TESTS ———
 
 import { test, expect } from '@playwright/test';
@@ -87,5 +87,5 @@ test.describe('Expression Evaluation (End-to-End)', () => {
 });
 
 
-// npx playwright test TESTS/e2e/cold/expression-evaluation.test.ts --config=playwright.config.ts --project=e2e-cold-chromium
+// npx playwright test TESTS/e2e/expression-evaluation.test.ts --config=playwright.config.ts --project=e2e-chromium
 

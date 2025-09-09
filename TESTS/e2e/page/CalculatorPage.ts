@@ -49,8 +49,10 @@ export class CalculatorPage {
 
     // Navigate to the calculator app
     async goto(): Promise<void> {
-        await this.page.goto('https://hradiladam.github.io/calculator/');
-    }
+		// navigate relative to baseURL from playwright.config.ts
+		await this.page.goto('/');
+
+	}
 
     // Normalize parentheses symbols from actual input display to the button label
     private normalizeParentheses(parentheses: string): ButtonLabel {

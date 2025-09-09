@@ -1,4 +1,4 @@
-// TESTS/e2e/cold/history-panel.test.ts
+// TESTS/e2e/history-panel.test.ts
 
 import { test, expect } from '@playwright/test';
 import { CalculatorPage } from './page/CalculatorPage';
@@ -275,4 +275,7 @@ test.describe('History Panel', () => {
 })
 
 
-// npx playwright test TESTS/e2e/cold/history-panel.test.ts --config=playwright.config.ts --project=e2e-cold-chromium
+// npx playwright test TESTS/e2e/history-panel.test.ts --config=playwright.config.ts --project=e2e-chromium
+// npx playwright test TESTS/e2e/history-panel.test.ts --config=playwright.config.ts --project=e2e-firefox
+// npx playwright test TESTS/e2e/history-panel.test.ts --config=playwright.config.ts --project=e2e-webkit
+

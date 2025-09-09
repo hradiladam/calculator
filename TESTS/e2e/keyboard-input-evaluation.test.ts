@@ -1,4 +1,4 @@
-// TESTS/e2e/cold/keyboard-input-evaluation.test.ts
+// TESTS/e2e/keyboard-input-evaluation.test.ts
 // ——— KEYBOARD INPUT END-TO-END TESTS ———
 
 import { test, expect } from '@playwright/test';
@@ -11,7 +11,7 @@ test.describe('Keyboard Input', () => {
         calculator = new CalculatorPage(page);
         await calculator.goto();
 
-        // 👉 Ensure key events go to the display region
+        // Ensure key events go to the display region
         await calculator.display.click();
     });
 
@@ -32,13 +32,4 @@ test.describe('Keyboard Input', () => {
     });
 });
 
-// npx playwright test TESTS/e2e/cold/keyboard-input-evaluation.test.ts --config=playwright.config.ts --project=e2e-cold-chromium
-
-
-/* On live server:
-
-PW_BASE_URL=https://hradiladam.github.io/calculator/ \
-npx playwright test TESTS/e2e/cold/keyboard-input-evaluation.test.ts \
-  --project=e2e-cold-chromium --config=playwright.config.ts
-
-*/
+// npx playwright test TESTS/e2e/keyboard-input-evaluation.test.ts --config=playwright.config.ts --project=e2e-chromium

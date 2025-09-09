@@ -108,8 +108,11 @@ test.describe('Theme Toggle', () => {
 });
 
 
-// PLAYWRIGHT CODEGEN: "npx playwright codegen https://hradiladam.github.io/calculator/"
 // npx playwright test TESTS/e2e/theme-toggle.test.ts --config=playwright.config.ts --project=e2e-Chromium
+
+
+
+// PLAYWRIGHT CODEGEN: "npx playwright codegen https://hradiladam.github.io/calculator/"
 
 
 

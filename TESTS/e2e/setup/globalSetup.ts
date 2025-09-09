@@ -1,7 +1,10 @@
 // TESTS/e2e/setup/globalSetup.ts
-// Runs once before all Playwright tests.
-// If we're hitting PROD, send one tiny request to wake the server.
+
+// Currently unused setup for PROD warmup and PROD smoke tests - will be used once PROD tests are added.
+// Explanation:
 // If we're on LOCALHOST, do nothing.
+// If we're hitting PROD, send one tiny request to wake the server (before running tests).
+
 
 import { request } from '@playwright/test';
 import { getEvaluateUrl } from '../../../apps/FRONTEND/ts/config-api';
