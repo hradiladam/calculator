@@ -2,9 +2,9 @@
 // —— UNIT TESTS FOR Calculator.ts ——
 // Verifies both correct results and error handling, plus integration with helper modules
 
-import Calculator from '../../../BACKEND/services/Calculator';
-import * as prep from '../../../BACKEND/utils/preprocessor';
-import Validator from '../../../BACKEND/utils/Validator';
+import Calculator from '../../../apps/BACKEND/services/Calculator';
+import * as prep from '../../../apps/BACKEND/utils/preprocessor';
+import Validator from '../../../apps/BACKEND/utils/Validator';
 
 describe('Calculator.evaluate()', () => {
     let calculator: Calculator;

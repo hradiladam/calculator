@@ -1,7 +1,7 @@
 // TESTS/frontend-logic/unit/ThemeSwitch.unit.test.ts
 // —— UNIT TEST FOR ThemeSwitch.ts ——
 
-import ThemeSwitch from '../../../ts/modules/ThemeSwitch';
+import ThemeSwitch from '../../../apps/FRONTEND/ts/modules/ThemeSwitch';
 
 describe('ThemeSwitch class', () => {
     let themeSwitch: ThemeSwitch;

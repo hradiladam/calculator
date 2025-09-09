@@ -1,31 +1,38 @@
 {
-    "name": "calculator-app",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-        "watch:frontend": "tsc -w",
-        "watch:backend": "tsc -p BACKEND -w",
-        "dev": "concurrently \"npm:watch:frontend\" \"npm:watch:backend\"",
-        "build": "tsc && tsc -p BACKEND",
+	"name": "calculator-monorepo",
+	"private": true,
+	"version": "1.0.0",
+	"workspaces": ["apps/FRONTEND", "apps/BACKEND"],
+	"scripts": {
+		"build": "npm run -w frontend build && npm run -w backend build",
 
-        "test": "jest",
-        "test:frontend": "jest --selectProjects frontend-logic",
-        "test:backend": "jest --selectProjects backend-logic",
+		"watch:frontend": "tsc -p apps/FRONTEND/tsconfig.json -w",
+		"watch:backend": "tsc -p apps/BACKEND/tsconfig.json -w",
 
-        "test:pw": "playwright test --config=playwright.config.ts",
-        "test:pw:chromium": "playwright test --config=playwright.config.ts --project=e2e-chromium --project=e2e-cold-chromium"
-    },
-    
-    "devDependencies": {
-        "@playwright/test": "^1.54.0",
-        "@types/jest": "^30.0.0",
-        "@types/node": "^24.0.13",
-        "@types/supertest": "^6.0.3",
-        "concurrently": "^8.2.2",
-        "jest": "^30.0.4",
-        "jest-environment-jsdom": "^30.0.4",
-        "supertest": "^7.1.3",
-        "ts-jest": "^29.4.0",
-        "typescript": "^5.4.0"
-    }
+		"serve:frontend": "http-server apps/FRONTEND -p 5500 -c-1",
+		"start:backend:ts": "ts-node apps/BACKEND/index.ts",
+		"start:backend:dist": "node apps/BACKEND/dist/index.js",
+		"dev": "concurrently \"npm:watch:frontend\" \"npm:watch:backend\"",
+
+		"test": "jest",
+		"test:frontend": "jest --selectProjects frontend-logic",
+		"test:backend": "jest --selectProjects backend-logic",
+
+		"pw:test": "playwright test --config=playwright.config.ts",
+		"pw:chromium": "playwright test --config=playwright.config.ts --project=e2e-chromium --project=e2e-cold-chromium"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.54.0",
+		"@types/jest": "^30.0.0",
+		"@types/node": "^24.0.13",
+		"@types/supertest": "^6.0.3",
+		"concurrently": "^8.2.2",
+		"http-server": "^14.1.1",
+		"jest": "^30.0.4",
+		"jest-environment-jsdom": "^30.0.4",
+		"supertest": "^7.1.3",
+		"ts-jest": "^29.4.0",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.4.0"
+	}
 }

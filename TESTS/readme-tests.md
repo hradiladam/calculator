@@ -29,8 +29,7 @@ calculator/
 │   ├── frontend-logic/
 │   │   ├── unit/
 │   │   └── integration/
-├── playwright-ui.config.ts
-├── playwright-e2e.config.ts
+├── playwright.config.ts
 ├── jest.config.cjs
 ├── known-issues.md
 └── readme-test.md
@@ -76,10 +75,6 @@ npx jest --selectProjects frontend-logic --config jest.config.cjs
 
 Playwright is used to simulate **real user interaction** and test **UI rendering**, **theme toggling**, **history panel** and **expression evaluation** via the **live API**.
 
-### 🧠 Config Split
-
-
-
 ### How to Run
 
 1. Go to teh root of the project:
@@ -90,7 +85,11 @@ npm install
 npx playwright install
 ```
 
-3. Run tests
+3. Run tests:
+
+**Locally:**
+Make sure both frontned and backend are compiled and running (readme.md)
+
 ``` bash
 npx playwright test --config=playwright.config.ts
 ```
@@ -98,9 +97,23 @@ npx playwright test --config=playwright.config.ts
 Optional: Run only in chromium
 
 ```bash
-npx playwright test --config=playwright.config.ts \
-  --project=e2e-chromium \
-  --project=e2e-cold-chromium
+npx playwright test --project=e2e-chromium --config=playwright.config.ts
+
+```
+
+On live server
+
+```bash
+PW_BASE_URL=https://hradiladam.github.io/calculator/ \
+npx playwright test --config=playwright.config.ts
+```
+
+Optional: Run only in chromium
+
+```bash
+PW_BASE_URL=https://hradiladam.github.io/calculator/ \
+npx playwright test --project=e2e-chromium --config=playwright.config.ts
+
 ```
 
 ---

@@ -1,8 +1,8 @@
 // TESTS/frontend-logic/integration/KeyboardHandler.integration.test.ts
 // —— UNIT TEST FOR KeyboardHandler.ts ——
 
-import KeyboardHandler from '../../../ts/modules/KeyboardHandler';
-import InputHandler from '../../../ts/modules/InputHandler';
+import KeyboardHandler from '../../../apps/FRONTEND/ts/modules/KeyboardHandler';
+import InputHandler from '../../../apps/FRONTEND/ts/modules/InputHandler';
 
 describe('KeyboardHandler', () => {
     let keyboardHandler: KeyboardHandler;

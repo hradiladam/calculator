@@ -2,9 +2,9 @@
 // —— UNIT TESTS FOR DisplayControl.ts ——
 // Covers UI display updates, clearing input and backspace
 
-import DisplayControl from '../../../ts/modules/DisplayControl';
-import State from '../../../ts/modules/State';
-import * as formatter from '../../../ts/modules/formatter';
+import DisplayControl from '../../../apps/FRONTEND/ts/modules/DisplayControl';
+import State from '../../../apps/FRONTEND/ts/modules/State';
+import * as formatter from '../../../apps/FRONTEND/ts/modules/formatter';
 
 describe('DisplayControl', () => {
     let state: State;
