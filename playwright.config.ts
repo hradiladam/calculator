@@ -1,4 +1,4 @@
-// TESTS/playwright.config.ts
+// playwright.config.ts
 import { defineConfig, devices, type PlaywrightTestOptions, type PlaywrightWorkerOptions } from '@playwright/test';
 
 const sharedUse: Partial<PlaywrightTestOptions & PlaywrightWorkerOptions> = {
