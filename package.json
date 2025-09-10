@@ -6,12 +6,17 @@
 	"scripts": {
 		"build": "npm run -w frontend build && npm run -w backend build",
 
+		"build:frontend": "tsc -p apps/FRONTEND/tsconfig.json",
+		"build:backend": "tsc -p apps/BACKEND/tsconfig.json",
+
 		"watch:frontend": "tsc -p apps/FRONTEND/tsconfig.json -w",
 		"watch:backend": "tsc -p apps/BACKEND/tsconfig.json -w",
 
 		"serve:frontend": "http-server apps/FRONTEND -p 5500 -c-1",
+
 		"start:backend:ts": "ts-node apps/BACKEND/index.ts",
 		"start:backend:dist": "node apps/BACKEND/dist/index.js",
+
 		"dev": "concurrently \"npm:watch:frontend\" \"npm:watch:backend\"",
 
 		"test": "jest",
@@ -19,7 +24,7 @@
 		"test:backend": "jest --selectProjects backend-logic",
 
 		"pw:test": "playwright test --config=playwright.config.ts",
-		"pw:chromium": "playwright test --config=playwright.config.ts --project=e2e-chromium --project=e2e-cold-chromium"
+		"pw:chromium": "playwright test --config=playwright.config.ts --project=e2e-chromium"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.54.0",
