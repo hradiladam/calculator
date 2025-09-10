@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  test-unit-and-e2e:
+    name: Unit (Jest) + E2E (Playwright)
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: ${{ github.event_name == 'pull_request' && fromJson('["chromium"]')|| fromJson('["chromium","firefox","webkit"]') }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Cache Playwright browsers
+      - name: Cache Playwright
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-pw-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-pw-
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Install Playwright (browsers & OS deps)
+        run: npx playwright install --with-deps
+
+      # Build both apps (backend must be built before Playwright webServer starts :3000)
+      - name: Build frontend
+        run: npm run build:frontend
+
+      - name: Build backend
+        run: npm run build:backend
+
+      - name: Run Jest
+        run: npm test -- --ci --reporters=default
+        env:
+          CI: true
+
+      - name: Run Playwright E2E (${{ matrix.browser }})
+        run: npx playwright test --project=e2e-${{ matrix.browser }}
+        env:
+          PW_BASE_URL: http://127.0.0.1:5500/
+          API_EVALUATE_URL: http://127.0.0.1:3000/evaluate
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report
+          retention-days: 7
+
+      - name: Upload raw test-results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.browser }}
+          path: test-results
+          retention-days: 7
