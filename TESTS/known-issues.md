@@ -51,9 +51,9 @@ Location:
 preprocess() in preprocessor.
 
 Severity:
-Very Low – purely cosmetic, does not affect evaluation, user will never see the additional parentheses
+Very Low – does not affect evaluation and user will NOT be able to see the additional parentheses as the issue only exists in backend.
 
 Priority:
 Very Low.
 
-STATUS: Open. Test skipped for now - non-issue. Tests skipped for now.
+STATUS: Open. Tests skipped for now.
