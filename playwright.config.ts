@@ -41,13 +41,13 @@ export default defineConfig({
 	globalSetup: './TESTS/e2e/setup/globalSetup.ts',
 
 	// Only start local servers when targeting localhost.
-	// (Playwright will reuse servers if you already started them yourself.)
+	// (Playwright will reuse servers if they were already started.)
 	webServer: isLocalBase
 		? [
-				{ command: 'npm run serve:frontend', port: 5500, reuseExistingServer: true },
-				{ command: 'npm run start:backend:ts', port: 3000, reuseExistingServer: true },
-		  ]
-		: undefined,
+			{ command: 'npm run serve:frontend',     port: 5500, reuseExistingServer: true, timeout: 60000 },
+			{ command: 'npm run start:backend:dist', port: 3000, reuseExistingServer: true, timeout: 60000 },
+		]
+	: undefined,
 
 	projects: [
 		{ name: 'e2e-chromium', use: { ...devices['Desktop Chrome'] } },
